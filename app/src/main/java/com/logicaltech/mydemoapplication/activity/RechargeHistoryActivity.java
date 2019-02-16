@@ -1,9 +1,13 @@
 package com.logicaltech.mydemoapplication.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -39,24 +43,46 @@ public class RechargeHistoryActivity extends AppCompatActivity
     GridLayoutManager mGridLayoutManagerBrand;
     ArrayList<Recharge_History_Model> arrayList =new ArrayList<>();
     SessionManeger sessionManeger;
-
+    ImageView imageView_back_arrow;
+    String memberId;
+    Button btn_recharge;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge_history);
         RecyclerView_rechargeHistory = (RecyclerView) findViewById(R.id.recycler_view_rechange_history);
+        imageView_back_arrow = (ImageView) findViewById(R.id.img_back_arrow_recharge_report_history);
+        btn_recharge = (Button) findViewById(R.id.button_recharge);
         mGridLayoutManagerBrand = new GridLayoutManager(RechargeHistoryActivity.this, 1);
         RecyclerView_rechargeHistory.setLayoutManager(mGridLayoutManagerBrand);
         sessionManeger = new SessionManeger(getApplicationContext());
         HashMap<String, String> hashMap = sessionManeger.getUserDetails();
-        String memberId = hashMap.get(SessionManeger.MEMBER_ID);
-        rechargeHistory();
+        memberId = hashMap.get(SessionManeger.MEMBER_ID);
+        rechargeHistory(memberId);
+        imageView_back_arrow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
+
+        btn_recharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(RechargeHistoryActivity.this,RechargeActivity.class);
+                intent.putExtra("token","0");
+                startActivity(intent);
+            }
+        });
     }
 
-    public void rechargeHistory()
+    public void rechargeHistory(final String memberId)
     {
-        String url = "http://api.zenpay.online/Api/getRechargeReport?MemberID=234658";
+        String url = Constant.URL+"getRechargeReport?MemberID="+memberId;
         JsonArrayRequest MyStringRequest = new JsonArrayRequest(Request.Method.POST, url, new Response.Listener<JSONArray>()
         {
             @Override
@@ -79,7 +105,7 @@ public class RechargeHistoryActivity extends AppCompatActivity
 
                         Recharge_History_Model model = new Recharge_History_Model();
                         model.setMember_ID(Member_ID);
-                        model.setRech_Amount(Rech_Type);
+                        model.setRech_Type(Rech_Type);
                         model.setOperator(Operator);
                         model.setMobile_Service_No(Mobile_Service_No);
                         model.setRech_Amount(Rech_Amount);

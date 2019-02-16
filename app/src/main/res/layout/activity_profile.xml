@@ -111,7 +111,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,7 +134,6 @@
                 android:paddingLeft="@dimen/_10sdp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/linear_layout_recharge_history"
@@ -162,7 +160,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/linear_layout_withdrawal_history"
             android:layout_width="match_parent"
@@ -187,8 +184,6 @@
                 android:paddingLeft="@dimen/_10sdp" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

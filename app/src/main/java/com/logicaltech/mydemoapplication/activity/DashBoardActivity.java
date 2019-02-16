@@ -51,10 +51,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 {
     BannerSlider bannerSlider;
     List<Banner> banners=new ArrayList<>();
-    LinearLayout CV_Mobile_Reacharge,CV_Eletricity_Recharge,LL_Flight_Booking,LL_Withdraw;
     Intent intent;
     SessionManeger sessionManeger;
-    TextView TextViewUserName,TextViewUserEmail;
+    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName;
     String memberId;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +76,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
         TextViewUserName = (TextView)  hView.findViewById(R.id.textviewprofilename);
         TextViewUserEmail = (TextView)  hView.findViewById(R.id.textviewprofileemailid);
+
         init();
 
         if (sessionManeger.checkLogin())
@@ -96,9 +96,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             TextViewUserEmail.setVisibility(View.VISIBLE);
             TextViewUserName.setText(userName);
             TextViewUserEmail.setText(userEmail);
+            TextViewProfileName.setText(userName+"\n"+userEmail);
             dashBoardData(memberId);
         }
-
         //add banner using resource drawable
         banners.add(new DrawableBanner(R.drawable.slider1));
         banners.add(new DrawableBanner(R.drawable.slider2));
@@ -111,51 +111,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     public void init()
     {
         bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
-        CV_Mobile_Reacharge = (LinearLayout) findViewById(R.id.linearlayout_mobile_reacharge);
-        CV_Eletricity_Recharge = (LinearLayout) findViewById(R.id.linear_layout_electricity);
-        LL_Flight_Booking = (LinearLayout) findViewById(R.id.linear_layout_flightbooking);
-        LL_Withdraw = (LinearLayout) findViewById(R.id.linear_layout_withdraw);
-
-        CV_Mobile_Reacharge.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                intent = new Intent(DashBoardActivity.this,RechargeActivity.class);
-                intent.putExtra("token","0");
-                startActivity(intent);
-            }
-        });
-
-        CV_Eletricity_Recharge.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                intent = new Intent(DashBoardActivity.this,ElectricityRechargeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        LL_Flight_Booking.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                intent = new Intent(DashBoardActivity.this,FlightBookActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        LL_Withdraw.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                intent = new Intent(DashBoardActivity.this,WithdrawActivity.class);
-                startActivity(intent);
-            }
-        });
+        TextViewTotalBalance = (TextView) findViewById(R.id.text_view_total_balance);
+        TextViewProfileName = (TextView) findViewById(R.id.textView_userName);
     }
 
     @Override
@@ -168,14 +125,14 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dash_board, menu);
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -186,9 +143,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -201,20 +157,19 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             intent = new Intent(this,ProfileActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.nav_gallery)
+        else if (id == R.id.nav_withdraw)
         {
-            intent = new Intent(this,SignupActivity.class);
+            intent = new Intent(this,WithdrawActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow)
+        } else if (id == R.id.nav_accountlist)
         {
-
-        } else if (id == R.id.nav_manage)
+            intent = new Intent(this,AccountListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_recharge)
         {
-
-        } else if (id == R.id.nav_share)
-        {
-            intent = new Intent(this,ProfileActivity.class);
+            intent = new Intent(this,RechargeActivity.class);
+            intent.putExtra("token","0");
             startActivity(intent);
         }
         else if (id == R.id.nav_logout)
@@ -253,6 +208,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     {
                         String total_Balance = jsonObject.getString("Total_Balance");
                         Constant.TOTAL_BALANCE = total_Balance;
+                        TextViewTotalBalance.setText(total_Balance);
                         Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
                     }
                     else
@@ -296,5 +252,50 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         };
         MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyRequestQueue.add(MyStringRequest);
+    }
+
+    public void buttonClicked(View view)
+    {
+        if (view.getId() == R.id.linear_layout_DTH)
+        {
+            intent = new Intent(DashBoardActivity.this,DTHActivity.class);
+            intent.putExtra("token","0");
+            startActivity(intent);
+            // button1 action
+        }
+        else if(view.getId()==R.id.linearlayout_mobile_reacharge)
+        {
+            intent = new Intent(DashBoardActivity.this,RechargeActivity.class);
+            intent.putExtra("token","0");
+            startActivity(intent);
+        }
+        else if(view.getId()==R.id.linear_layout_utility)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        /*else if(view.getId()==R.id.linear_layout_withdraw)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }*/
+        else if(view.getId() == R.id.linear_layout_electricity)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        else if (view.getId() == R.id.linear_layout_bus)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        else if (view.getId() == R.id.linear_layout_flightbooking)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        else if (view.getId() == R.id.linear_layout_hotel)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        else if (view.getId() == R.id.linear_layout_train)
+        {
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
     }
 }

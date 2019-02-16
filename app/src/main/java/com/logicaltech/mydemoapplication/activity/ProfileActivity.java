@@ -30,12 +30,9 @@ public class ProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_profile);
         sessionManeger = new SessionManeger(getApplicationContext());
         init();
-
-
     }
 
-    public void init()
-    {
+    public void init() {
         TV_total_Balance = (TextView) findViewById(R.id.tv_totalbalance);
         LinearLayout_ViewProfile = (LinearLayout) findViewById(R.id.linear_layout_view_profile);
         LinearLayout_AccountDetail = (LinearLayout) findViewById(R.id.linear_layout_Account_list);

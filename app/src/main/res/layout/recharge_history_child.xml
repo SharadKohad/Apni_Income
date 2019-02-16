@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/box_shadow"
+    android:layout_margin="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_account_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/text_view_account_name"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Rech_Type:"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/text_view_recharg_type_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Account Name"
+            android:layout_toRightOf="@+id/text_view_account_name"
+            android:paddingLeft="@dimen/_10sdp" />
+
+        <TextView
+            android:id="@+id/text_view_account_number1"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Operator:"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:layout_below="@+id/text_view_account_name"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/text_view_recharg_operator_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/text_view_account_number1"
+            android:layout_below="@+id/text_view_recharg_type_history"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+        <TextView
+            android:id="@+id/text_view_account_bank_name"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Mobile_No"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:layout_below="@+id/text_view_account_number1"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/text_view_mobile_no_recharge_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/text_view_account_bank_name"
+            android:layout_below="@+id/text_view_recharg_operator_history"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+        <TextView
+            android:id="@+id/text_view_account_mobile_number"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Rech_Amount"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12sdp"
+            android:layout_below="@+id/text_view_account_bank_name"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/text_view_recharge_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/text_view_account_mobile_number"
+            android:layout_below="@+id/text_view_mobile_no_recharge_history"
+            android:layout_marginBottom="@dimen/_10sdp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

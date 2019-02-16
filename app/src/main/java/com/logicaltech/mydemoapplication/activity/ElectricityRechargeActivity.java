@@ -27,17 +27,13 @@ public class ElectricityRechargeActivity extends AppCompatActivity implements Ad
         setContentView(R.layout.activity_electricity_recharge);
         spinner =(Spinner) findViewById(R.id.spinner);
         IV_Back_Arrow = (ImageView) findViewById(R.id.electricitybill_back_arrow);
-
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
-
         ArrayAdapter<CharSequence> dataAdapter = ArrayAdapter.createFromResource(this, R.array.india_states, android.R.layout.simple_spinner_item);
-
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(dataAdapter);
-
-        IV_Back_Arrow.setOnClickListener(new View.OnClickListener() {
+        IV_Back_Arrow.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {

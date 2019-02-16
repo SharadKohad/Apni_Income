@@ -53,8 +53,11 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import adapter.Account_Adapter;
@@ -68,10 +71,10 @@ import utility.SessionManeger;
 public class WithdrawActivity extends AppCompatActivity
 {
     TextView TV_title,textView_Total_Balance,TextView_TDS,TextView_Charges,TV_Paid_Amount;
-    ImageView imageView_close;
+    ImageView imageView_close,imageView_back_arrow;
     LinearLayout linearLayout_mobile_no,linearLayout_mobile_otp;
     SessionManeger sessionManeger;
-    String member_id,user_email,user_name,mobile_no=null,token="0",account_no,kyc_status="N",otp="0";
+    String member_id,user_email,user_name,mobile_no=null,token="0",account_no,kyc_status="N",otp="0",weekDay;
     RecyclerView recyclerView_Mobile_No;
     GridLayoutManager mGridLayoutManagerBrand;
     EditText ET_mobile_no,ET_account_no,ET_Amount,ET_Otp;
@@ -81,7 +84,6 @@ public class WithdrawActivity extends AppCompatActivity
     Button Btn_getotp,Btn_withDraw;
 
     Dialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -103,6 +105,12 @@ public class WithdrawActivity extends AppCompatActivity
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+        Calendar calendar = Calendar.getInstance();
+        weekDay = dayFormat.format(calendar.getTime());
+        init();
+    }
+    public void init() {
         textView_Total_Balance = (TextView)findViewById(R.id.tv_withdraw_totalbalance);
         ET_mobile_no = (EditText) findViewById(R.id.EditText_Mobileno_withdraw);
         textView_Total_Balance.setText(Constant.TOTAL_BALANCE);
@@ -122,6 +130,14 @@ public class WithdrawActivity extends AppCompatActivity
         linearLayout_mobile_no = (LinearLayout) findViewById(R.id.linear_layout_mobile_otp);
         linearLayout_mobile_otp = (LinearLayout) findViewById(R.id.linear_layout_mobile_otp);
         Btn_withDraw = (Button) findViewById(R.id.button_withdrawle);
+        imageView_back_arrow = (ImageView) findViewById(R.id.imageview_back_arrow_reacharg_withdraw);
+
+        imageView_back_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ET_Amount.addTextChangedListener(new TextWatcher()
         {
@@ -184,7 +200,14 @@ public class WithdrawActivity extends AppCompatActivity
             {
                 if (otp.equals(ET_Otp.getText().toString()))
                 {
-                    putWithdraw(member_id,ET_mobile_no.getText().toString(),ET_account_no.getText().toString(),TV_Paid_Amount.getText().toString());
+                    if (weekDay.equals("Saturday")||weekDay.equals("Sunday"))
+                    {
+                        putWithdraw(member_id,ET_mobile_no.getText().toString(),ET_account_no.getText().toString(),TV_Paid_Amount.getText().toString());
+                    }
+                    else
+                    {
+                        Toast.makeText(WithdrawActivity.this,"Withdraw process only avaliable saturday or sunday only",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
@@ -208,14 +231,36 @@ public class WithdrawActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                postGetOtp(ET_mobile_no.getText().toString(),user_email,user_name);
+                String mobile_no = ET_mobile_no.getText().toString();
+                if (mobile_no.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"Please select Mobile Number",Toast.LENGTH_SHORT);
+                }
+                else
+                {
+                    String account_no = ET_account_no.getText().toString();
+                    if (account_no.equals(""))
+                    {
+                        Toast.makeText(getApplicationContext(),"Please select Account No",Toast.LENGTH_SHORT);
+                    }
+                    else
+                    {
+                        String amount = ET_Amount.getText().toString();
+                        if (amount.equals(""))
+                        {
+                            Toast.makeText(getApplicationContext(),"Please Enter Amount",Toast.LENGTH_SHORT);
+                        }
+                        else
+                        {
+                            postGetOtp(ET_mobile_no.getText().toString(),user_email,user_name);
+                        }
+                    }
+                }
             }
         });
-
     }
 
-    private void showMobileNumberDialog()
-    {
+    private void showMobileNumberDialog() {
         if (token.equals("0"))
         {
             TV_title.setText("Mobile No");
@@ -239,8 +284,7 @@ public class WithdrawActivity extends AppCompatActivity
         dialog.getWindow().setAttributes(lp);
     }
 
-    public void mobileNumberList(final String memberId)
-    {
+    public void mobileNumberList(final String memberId) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getMobileNos?MemberID="+memberId;
         JsonArrayRequest MyStringRequest = new JsonArrayRequest(Request.Method.POST, url, new Response.Listener<JSONArray>()
@@ -300,8 +344,7 @@ public class WithdrawActivity extends AppCompatActivity
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void account_no_list(final String memberId,final String mobile_no)
-    {
+    public void account_no_list(final String memberId,final String mobile_no) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getBankAccByMobileNo?mobile="+mobile_no+"&MemberID="+memberId;
         JsonArrayRequest MyStringRequest = new JsonArrayRequest(Request.Method.POST, url, new Response.Listener<JSONArray>()
@@ -363,8 +406,7 @@ public class WithdrawActivity extends AppCompatActivity
         MyRequestQueue.add(MyStringRequest);
     }
 
-    class Mobile_Adapter extends RecyclerView.Adapter<Mobile_Adapter.RecyclerViewHolder>
-    {
+    class Mobile_Adapter extends RecyclerView.Adapter<Mobile_Adapter.RecyclerViewHolder> {
         public ArrayList<MobileNumber> orderList;
         public Context mContext;
         public Mobile_Adapter(ArrayList<MobileNumber> orderList , Context context)
@@ -413,8 +455,7 @@ public class WithdrawActivity extends AppCompatActivity
         }
     }
 
-    class Account_Adapter extends RecyclerView.Adapter<Account_Adapter.RecyclerViewHolder>
-    {
+    class Account_Adapter extends RecyclerView.Adapter<Account_Adapter.RecyclerViewHolder> {
         public ArrayList<Account_Model> orderList;
         public Context mContext;
         public Account_Adapter(ArrayList<Account_Model> orderList , Context context)
@@ -462,8 +503,7 @@ public class WithdrawActivity extends AppCompatActivity
         }
     }
 
-    public void postKYC(final String member_id)
-    {
+    public void postKYC(final String member_id) {
         String strurl= Constant.URL+"getKYCStatus?MemberID="+member_id;
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, strurl, new Response.Listener<JSONObject>()
         {
@@ -483,7 +523,8 @@ public class WithdrawActivity extends AppCompatActivity
                     {
                         Toast.makeText(WithdrawActivity.this,"Fail "+kyc_status,Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                }catch (Exception e)
+                {
                     System.out.println(e);
                 }
             }
@@ -509,9 +550,7 @@ public class WithdrawActivity extends AppCompatActivity
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
-    public void postGetOtp(final String mobile_no,final String user_email,final String member_name)
-    {
-        // String strurl=AppConstant.MAIN_URL+"api/ProductsExtended/"+p_id;
+    public void postGetOtp(final String mobile_no,final String user_email,final String member_name) {
         String strurl= Constant.URL+"getOTP?codeType=W&MobileNo="+mobile_no+"&EmailID="+user_email+"&MemberName="+member_name;
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, strurl, new Response.Listener<JSONObject>()
         {
@@ -534,7 +573,9 @@ public class WithdrawActivity extends AppCompatActivity
                     {
                         Toast.makeText(WithdrawActivity.this,"fail",Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                }
+                catch (Exception e)
+                {
                     System.out.println(e);
                 }
             }
@@ -559,9 +600,7 @@ public class WithdrawActivity extends AppCompatActivity
         MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjectRequest);
     }
 
-
-    public void putWithdraw(final String member_id, final String mobile_no, final String bank_id, final String amount)
-    {
+    public void putWithdraw(final String member_id, final String mobile_no, final String bank_id, final String amount) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
         String url = Constant.URL+"addWithdrawal?MemberID="+member_id+"&Activestat=G&request_mobile_no="+mobile_no+"&bank_id="+bank_id+"&Amount="+amount+"&DeviceType=Android";
@@ -588,9 +627,11 @@ public class WithdrawActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+        }, new Response.ErrorListener()
+        { //Create an error listener to handle errors appropriately.
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error)
+            {
                 //This code is executed if there is an error.
                 String message= "";
                 if (error instanceof ServerError)
@@ -604,9 +645,11 @@ public class WithdrawActivity extends AppCompatActivity
                 System.out.println("error........"+error);
                 //This code is executed if there is an error.
             }
-        }) {
+        })
+        {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Accept","application/json");
                 headers.put("Content-Type","application/json");
@@ -616,5 +659,4 @@ public class WithdrawActivity extends AppCompatActivity
         MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyRequestQueue.add(MyStringRequest);
     }
-
 }

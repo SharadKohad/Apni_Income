@@ -28,7 +28,7 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_detail_child_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recharge_history_child, parent, false);
         return new Recharge_History_Adapter.RecyclerViewHolder(view);
     }
     @Override
@@ -36,11 +36,11 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
     {
         final Recharge_History_Model account_model = orderList.get(position);
 
-        holder.TV_AccountName.setText("Account Name: "+account_model.getCreated_Dt());
-        holder.TV_AccountNumber.setText("Account No: "+account_model.getRech_Type());
-        holder.TV_BankName.setText("Branch Name: "+account_model.getOperator());
+        holder.TV_Recharge_Type.setText(account_model.getRech_Type());
+        holder.TV_Recharge_Operator.setText(account_model.getOperator());
+        holder.TV_Mobile_Name.setText(account_model.getMobile_Service_No());
      //   holder.TV_Branch_Name.setText("Bank Name: "+account_model.getMobile());
-        holder.TV_Mobile_Name.setText("Mobile No"+account_model.getRech_Amount());
+        holder.TV_Recharge_Amount.setText(account_model.getRech_Amount());
 
    /*     holder.relativeLayout_Account_List.setOnClickListener(new View.OnClickListener()
         {
@@ -69,16 +69,16 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
     }
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
     {
-        TextView TV_AccountName,TV_AccountNumber,TV_BankName,TV_Mobile_Name;
+        TextView TV_Recharge_Type,TV_Recharge_Operator,TV_Mobile_Name,TV_Recharge_Amount;
         RelativeLayout relativeLayout_Account_List;
         public RecyclerViewHolder(View itemView)
         {
             super(itemView);
-            TV_AccountName = (TextView) itemView.findViewById(R.id.text_view_account_name);
-            TV_AccountNumber = (TextView) itemView.findViewById(R.id.text_view_account_number);
-            TV_BankName = (TextView) itemView.findViewById(R.id.text_view_bank_name);
+            TV_Recharge_Type = (TextView) itemView.findViewById(R.id.text_view_recharg_type_history);
+            TV_Recharge_Operator = (TextView) itemView.findViewById(R.id.text_view_recharg_operator_history);
+            TV_Mobile_Name = (TextView) itemView.findViewById(R.id.text_view_mobile_no_recharge_history);
          //   TV_Branch_Name = (TextView) itemView.findViewById(R.id.text_view_branch_name);
-            TV_Mobile_Name = (TextView) itemView.findViewById(R.id.text_view_mobile_name);
+            TV_Recharge_Amount = (TextView) itemView.findViewById(R.id.text_view_recharge_amount);
             relativeLayout_Account_List = (RelativeLayout)itemView.findViewById(R.id.relative_layout_account_list);
         }
     }
