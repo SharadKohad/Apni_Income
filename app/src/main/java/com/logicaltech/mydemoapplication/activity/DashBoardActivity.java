@@ -108,8 +108,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         bannerSlider.setBanners(banners);
     }
 
-    public void init()
-    {
+    public void init() {
         bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         TextViewTotalBalance = (TextView) findViewById(R.id.text_view_total_balance);
         TextViewProfileName = (TextView) findViewById(R.id.textView_userName);
@@ -148,8 +147,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
-    {
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile)
@@ -191,8 +189,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    public void dashBoardData(final String memberId)
-    {
+    public void dashBoardData(final String memberId) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getDashboardData?MemberID="+memberId;
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
@@ -222,11 +219,10 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 }
             }
         }, new Response.ErrorListener()
-        { //Create an error listener to handle errors appropriately.
+        {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                //This code is executed if there is an error.
                 String message= "";
                 if (error instanceof ServerError)
                 {
@@ -237,7 +233,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 System.out.println("error........"+error);
-                //This code is executed if there is an error.
             }
         })
         {

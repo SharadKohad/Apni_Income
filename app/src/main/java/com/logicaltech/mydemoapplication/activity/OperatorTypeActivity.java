@@ -64,8 +64,7 @@ public class OperatorTypeActivity extends AppCompatActivity
         operatorType(operatortype);
     }
 
-    public void operatorType(final String operatortype)
-    {
+    public void operatorType(final String operatortype) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
         String url = Constant.URL+"getOperatorByType?RechargeType="+operatortype;
@@ -119,7 +118,6 @@ public class OperatorTypeActivity extends AppCompatActivity
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 System.out.println("error........"+error);
-                //This code is executed if there is an error.
             }
         })
         {
@@ -135,4 +133,5 @@ public class OperatorTypeActivity extends AppCompatActivity
         MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyRequestQueue.add(MyStringRequest);
     }
+
 }

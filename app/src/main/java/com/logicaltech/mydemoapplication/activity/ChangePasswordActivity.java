@@ -69,9 +69,9 @@ public class ChangePasswordActivity extends AppCompatActivity
                 changePassword();
             }
         });
+
     }
-    public void changePassword()
-    {
+    public void changePassword() {
         String oldPassword = ET_Old_Password.getText().toString();
         if (oldPassword.equals(""))
         {
@@ -106,8 +106,7 @@ public class ChangePasswordActivity extends AppCompatActivity
         }
     }
 
-    public void changePassword(final String memberId,final String oldPassword,final String newPawwrod)
-    {
+    public void changePassword(final String memberId,final String oldPassword,final String newPawwrod) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
         String url = Constant.URL+"ChangePassword?MemberID="+memberId+"&CurrentPass="+oldPassword+"&NewPass="+newPawwrod;

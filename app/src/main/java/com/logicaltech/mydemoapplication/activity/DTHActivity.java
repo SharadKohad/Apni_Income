@@ -68,8 +68,7 @@ public class DTHActivity extends AppCompatActivity
         });
     }
 
-    public void dth_charge()
-    {
+    public void dth_charge() {
         String opertor_type = TV_Operator.getText().toString();
         if (opertor_type.equals(""))
         {

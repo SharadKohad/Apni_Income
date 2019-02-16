@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.DTHActivity">
+    tools:context=".activity.DTHActivity"
+    android:background="@color/cyan_300">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,6 +38,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:background="@drawable/world_map"
         android:layout_below="@+id/image_view_profile">
 
         <LinearLayout
@@ -116,7 +118,6 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,6 +136,7 @@
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
