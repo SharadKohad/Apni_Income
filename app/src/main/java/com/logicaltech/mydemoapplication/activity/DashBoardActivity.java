@@ -249,8 +249,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void buttonClicked(View view)
-    {
+    public void buttonClicked(View view) {
         if (view.getId() == R.id.linear_layout_DTH)
         {
             intent = new Intent(DashBoardActivity.this,DTHActivity.class);

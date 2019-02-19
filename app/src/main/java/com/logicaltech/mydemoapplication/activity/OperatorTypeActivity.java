@@ -62,6 +62,7 @@ public class OperatorTypeActivity extends AppCompatActivity
         operatortype = getIntent().getExtras().getString("operatortype");
 
         operatorType(operatortype);
+
     }
 
     public void operatorType(final String operatortype) {

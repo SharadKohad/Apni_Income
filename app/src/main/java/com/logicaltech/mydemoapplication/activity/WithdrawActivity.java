@@ -82,7 +82,6 @@ public class WithdrawActivity extends AppCompatActivity
     ArrayList<Account_Model> arrayList1 =new ArrayList<>();
     WindowManager.LayoutParams lp;
     Button Btn_getotp,Btn_withDraw;
-
     Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -139,8 +138,7 @@ public class WithdrawActivity extends AppCompatActivity
             }
         });
 
-        ET_Amount.addTextChangedListener(new TextWatcher()
-        {
+        ET_Amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
@@ -148,8 +146,7 @@ public class WithdrawActivity extends AppCompatActivity
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String amount=s.toString();
                 if (s.length()==0)
                 {
@@ -279,7 +276,6 @@ public class WithdrawActivity extends AppCompatActivity
                 dialog.dismiss();
             }
         });
-
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
