@@ -32,11 +32,15 @@
         android:layout_marginTop="105dp"
         android:src="@drawable/profile_icon" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_view_profile">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@+id/image_view_profile">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/linear_layout_Account_Setting"
@@ -135,6 +139,102 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/linear_layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/EditText_Address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center|left"
+                android:inputType="text"
+                android:hint="Enter Address Here"
+                android:textColor="@color/dim_grey"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_fatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/EditText_fatherName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center|left"
+                android:inputType="text"
+                android:hint="Enter Father Name"
+                android:textColor="@color/dim_grey"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp">
+
+            <TextView
+                android:id="@+id/tv_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15sdp"/>
+
+            <RadioGroup
+                android:id="@+id/rediogroupplace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_place"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MALE"
+                    android:textSize="@dimen/_10sdp"
+                    android:checked="false"
+                    android:textColor="@color/black"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FEMALE"
+                    android:textSize="@dimen/_10sdp"
+                    android:checked="false"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp" />
+
+            </RadioGroup>
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,6 +262,10 @@
                 android:textColor="@color/white" />
 
         </LinearLayout>
+
+
     </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

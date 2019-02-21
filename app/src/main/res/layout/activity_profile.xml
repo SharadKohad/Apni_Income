@@ -112,6 +112,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_my_network"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -129,7 +130,32 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
-                android:text="Rate ZenPay"
+                android:text="Direct Network"
+                android:gravity="center|left"
+                android:paddingLeft="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_downlineTeam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/box_shadow">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:text="Downline Team"
                 android:gravity="center|left"
                 android:paddingLeft="@dimen/_10sdp" />
 

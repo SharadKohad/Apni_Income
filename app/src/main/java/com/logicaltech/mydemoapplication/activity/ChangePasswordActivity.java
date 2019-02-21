@@ -1,5 +1,6 @@
 package com.logicaltech.mydemoapplication.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.logicaltech.mydemoapplication.R;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import utility.Constant;
+import utility.MySingalton;
 import utility.SessionManeger;
 
 public class ChangePasswordActivity extends AppCompatActivity
@@ -47,11 +50,8 @@ public class ChangePasswordActivity extends AppCompatActivity
         ET_Old_Password = (EditText) findViewById(R.id.edit_text_old_password);
         ET_NewPassword = (EditText) findViewById(R.id.edit_text_new_password);
         ET_ConformPaaword = (EditText) findViewById(R.id.edit_text_new_password_conform);
-
         HashMap<String, String> hashMap = sessionManeger.getUserDetails();
-
         memberId = hashMap.get(SessionManeger.MEMBER_ID);
-
         IV_Back_Arrow.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -60,7 +60,6 @@ public class ChangePasswordActivity extends AppCompatActivity
                 finish();
             }
         });
-
         btn_save_password.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -69,9 +68,9 @@ public class ChangePasswordActivity extends AppCompatActivity
                 changePassword();
             }
         });
-
     }
-    public void changePassword() {
+    public void changePassword()
+    {
         String oldPassword = ET_Old_Password.getText().toString();
         if (oldPassword.equals(""))
         {
@@ -106,11 +105,10 @@ public class ChangePasswordActivity extends AppCompatActivity
         }
     }
 
-    public void changePassword(final String memberId,final String oldPassword,final String newPawwrod) {
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
-        String url = Constant.URL+"ChangePassword?MemberID="+memberId+"&CurrentPass="+oldPassword+"&NewPass="+newPawwrod;
-        StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>()
+    public void changePassword(final String memberId,final String oldPassword,final String newPawwrod)
+    {
+        String url = Constant.URL+"changePassword";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.PUT,url, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -119,14 +117,15 @@ public class ChangePasswordActivity extends AppCompatActivity
                 {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if (status.equals("PASSWORD CHANGE SUCCESSFULLY."))
+                    String msg = jsonObject.getString("msg");
+                    if (status.equals("1"))
                     {
-                        Toast.makeText(ChangePasswordActivity.this,"Change Password",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this," "+msg,Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else
                     {
-                        Toast.makeText(ChangePasswordActivity.this,"fail",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this," "+msg,Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JSONException e)
@@ -134,47 +133,31 @@ public class ChangePasswordActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //This code is executed if there is an error.
-                String message= "";
-                if (error instanceof ServerError)
+        },
+                new Response.ErrorListener()
                 {
-                    message = "The server could not be found. Please try again after some time!!";
-                }
-                else if (error instanceof TimeoutError)
-                {
-                    message = "Connection TimeOut! Please check your internet connection.";
-                }
-                System.out.println("error........"+error);
-                //This code is executed if there is an error.
-            }
-        }) {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        VolleyLog.d("volley", "Error: " + error.getMessage());
+                        error.printStackTrace();
+                    }
+                }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Accept","application/json");
-                headers.put("Content-Type","application/json");
-                return headers;
-            }
-
-          /*  protected Map<String, String> getParams()
+            public String getBodyContentType()
             {
-                Map<String, String> MyData = new HashMap<String, String>();
-                MyData.put("MobileNo", Mobileno);
-                MyData.put("Email", EmailId);
-                MyData.put("UserID",UserID);
-                MyData.put("name", name);
-                MyData.put("Password", Password);
-                MyData.put("place", place);
-                MyData.put("sponserID", sponserid);
-                MyData.put("ip_address", ip_address);
-                MyData.put("DeviceType", devicetype);
-                return MyData;
-            }*/
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("membercode", memberId);
+                params.put("OldPass",oldPassword);
+                params.put("NewPass", newPawwrod);
+                return params;
+            }
         };
-        MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MyRequestQueue.add(MyStringRequest);
+        MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
     }
 }

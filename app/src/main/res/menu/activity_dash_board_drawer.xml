@@ -8,6 +8,18 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_person"
             android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_investment"
+            android:icon="@drawable/ic_withdraw"
+            android:title="Investment" />
+
+        <item
+            android:id="@+id/nav_earning_report"
+            android:icon="@drawable/ic_withdraw"
+            android:title="Earning Report" />
+
+
         <item
             android:id="@+id/nav_withdraw"
             android:icon="@drawable/ic_withdraw"

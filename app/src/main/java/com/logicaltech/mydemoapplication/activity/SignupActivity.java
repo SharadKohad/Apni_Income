@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.logicaltech.mydemoapplication.R;
@@ -35,12 +38,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utility.Constant;
+import utility.MySingalton;
 import utility.SessionManeger;
 
 public class SignupActivity extends AppCompatActivity
 {
     FloatingActionButton fab_signUp;
-    TextInputEditText TIET_mobileNo,TIET_email_id,TIET_user_id,TIET_name,TIET_password,TIET_conformPassword,TIET_sponsorId;
+    TextInputEditText TIET_mobileNo,TIET_email_id,TIET_name,TIET_sponsorId;
     private RadioGroup radioGroupPlace;
     private RadioButton radioButtonPlace;
     int mobileToken=0;
@@ -54,25 +58,19 @@ public class SignupActivity extends AppCompatActivity
         setContentView(R.layout.activity_signup);
         sessionManeger = new SessionManeger(getApplicationContext());
         init();
-
         fab_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
         });
-
     }
 
-    public void init()
-    {
+    public void init() {
         fab_signUp = (FloatingActionButton) findViewById(R.id.fab_signup);
         TIET_mobileNo = (TextInputEditText)findViewById(R.id.tiet_mobileno);
         TIET_email_id = (TextInputEditText)findViewById(R.id.tied_email_id);
-        TIET_user_id =(TextInputEditText)findViewById(R.id.tiet_userId);
         TIET_name =(TextInputEditText)findViewById(R.id.tiet_name);
-        TIET_password =(TextInputEditText)findViewById(R.id.tiet_password);
-        TIET_conformPassword =(TextInputEditText)findViewById(R.id.tiet_conformpassword);
         TIET_sponsorId = (TextInputEditText) findViewById(R.id.tiet_sponsorid);
         radioGroupPlace = (RadioGroup) findViewById(R.id.rediogroupplace);
         checkBox_SponserId = (CheckBox) findViewById(R.id.checkboxspoinerId);
@@ -94,7 +92,7 @@ public class SignupActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
                 {
-                       TIET_sponsorId.setText("TestZenpay");
+                       TIET_sponsorId.setText("AP0000001");
                 }
                 else
                 {
@@ -104,8 +102,7 @@ public class SignupActivity extends AppCompatActivity
         });
     }
 
-    public void signUp()
-    {
+    public void signUp() {
         String mobileNo = TIET_mobileNo.getText().toString();
         if (mobileNo.equals("")|| mobileNo.length()<10)
         {
@@ -120,125 +117,35 @@ public class SignupActivity extends AppCompatActivity
             }
             else
             {
-                String user_id = TIET_user_id.getText().toString();
-                if (user_id.equals(""))
-                {
-                    Toast.makeText(this,"Please enter valid user Id",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    String name = TIET_name.getText().toString();
+                String name = TIET_name.getText().toString();
                     if (name.equals(""))
                     {
                         Toast.makeText(this,"Please enter Name",Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        String password = TIET_password.getText().toString();
-                        if (password.equals(""))
+                        String sponsorId = TIET_sponsorId.getText().toString();
+                        if (sponsorId.equals(""))
                         {
-                            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this,"please Enter Sponsor Id",Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            String coformpassword = TIET_conformPassword.getText().toString();
-                            if (coformpassword.equals(""))
+                            if (place.equals(""))
                             {
-                                Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this,"please select any one place",Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
-                                if (password.equals(coformpassword))
-                                {
-                                    if (place.equals(""))
-                                    {
-                                        Toast.makeText(this,"please select any one place",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else
-                                    {
-                                        String sponsorId = TIET_sponsorId.getText().toString();
-                                        if (sponsorId.equals(""))
-                                        {
-                                            Toast.makeText(this,"please Enter Sponsor Id",Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
-                                            registration(mobileNo,email_id,user_id,name,password,place,sponsorId,"255.255.255.0","Android");
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    Toast.makeText(this,"password don't match",Toast.LENGTH_SHORT).show();
-                                }
+                                registration1(mobileNo,email_id,name,place,sponsorId,"255.255.255.0");
                             }
                         }
                     }
-                }
             }
         }
     }
 
-    public void registration(final String Mobileno, final String EmailId, final String UserID, final String name, final String Password, final String place, final String sponserid, final String ip_address, final String devicetype)
-    {
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-      //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
-        String url = Constant.URL+"addSignUp?MobileNo="+Mobileno+"&Email="+EmailId+"&UserID="+UserID+"&name="+name+"&Password="+Password+"&place="+place+"&sponserID="+sponserid+"&ip_address=255.255.255.0&DeviceType=Android";
-        StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                try
-                {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
-                    if (status.equals("SUCCESS"))
-                    {
-                        String userId = jsonObject.getString("username");
-                        String password = jsonObject.getString("NewPass");
-                        signInVolly(userId,password);
-                    }
-                    else
-                    {
-                        Toast.makeText(SignupActivity.this,"Registration fail",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (JSONException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //This code is executed if there is an error.
-                String message= "";
-                if (error instanceof ServerError)
-                {
-                    message = "The server could not be found. Please try again after some time!!";
-                }
-                else if (error instanceof TimeoutError)
-                {
-                    message = "Connection TimeOut! Please check your internet connection.";
-                }
-                System.out.println("error........"+error);
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Accept","application/json");
-                headers.put("Content-Type","application/json");
-                return headers;
-            }
-        };
-        MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MyRequestQueue.add(MyStringRequest);
-    }
-
-    public void signInVolly(final String userId, final String Password)
-    {
+    public void signInVolly(final String userId, final String Password) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getSignIn?UserID="+userId+"&Password="+Password;
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
@@ -302,5 +209,67 @@ public class SignupActivity extends AppCompatActivity
         };
         MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyRequestQueue.add(MyStringRequest);
+    }
+
+    public void registration1(final String Mobileno, final String EmailId,final String name, final String place, final String sponserid, final String ip_address) {
+        String url = Constant.URL+"addSignUp";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.PUT,url, new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
+                    {
+                        try
+                        {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String status = jsonObject.getString("status");
+                            String message = jsonObject.getString("msg");
+                            if (status.equals("1"))
+                            {
+                               // String userId = jsonObject.getString("username");
+                              //  String password = jsonObject.getString("NewPass");
+                                // signInVolly(userId,password);
+                                Toast.makeText(SignupActivity.this," "+message,Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignupActivity.this,SignInActivity.class);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.makeText(SignupActivity.this," "+message,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        VolleyLog.d("volley", "Error: " + error.getMessage());
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Mobile_No", Mobileno);
+                params.put("Email",EmailId);
+                params.put("Memb_Name", name);
+                params.put("sp_user", sponserid);
+                params.put("Place", place);
+                params.put("client_ip", ip_address);
+                return params;
+            }
+        };
+        MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
     }
 }

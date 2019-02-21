@@ -2,6 +2,7 @@
 <resources>
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <color name="colorPrimary">#1976D2</color>
+    <color name="colorPrimary1">#20519A</color>
     <color name="colorPrimaryDark">#1565C0</color>
     <color name="colorPrimaryLight">#1E88E5</color>
     <color name="colorAccent">#FF4081</color>
@@ -22,6 +23,10 @@
     <color name="teal_500">#009688</color>
     <color name="deep_orange_300">#FF8A65</color>
     <color name="orange_500">#FF9800</color>
+    <color name="light_blue_200">#81D4FA</color>
+    <color name="indigo_900">#1A237E</color>
+    <color name="light_blue_500">#03A9F4</color>
+    <color name="indigo_400">#5C6BC0</color>
 
 
     <color name="overlay_dark_50">#80000000</color>

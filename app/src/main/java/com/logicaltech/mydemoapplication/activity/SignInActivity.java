@@ -2,11 +2,13 @@ package com.logicaltech.mydemoapplication.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.text.format.Formatter;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.SignInButton;
@@ -36,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import utility.Constant;
+import utility.MySingalton;
 import utility.SessionManeger;
 
 public class SignInActivity extends AppCompatActivity
@@ -48,6 +52,7 @@ public class SignInActivity extends AppCompatActivity
     TextView TVforgotpassword;
     Dialog dialog;
     WindowManager.LayoutParams lp;
+    String ip= "255.255.255.0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,8 +61,11 @@ public class SignInActivity extends AppCompatActivity
         setContentView(R.layout.activity_sign_in);
         sessionManeger = new SessionManeger(getApplicationContext());
         init();
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
     }
-    public void init() {
+    public void init()
+    {
         linearLayoutSignUp = (LinearLayout)findViewById(R.id.llsign_up_for_account);
         TIET_email_id = (TextInputEditText)findViewById(R.id.tiet_userid_signin);
         TIET_password = (TextInputEditText)findViewById(R.id.tiet_password_signin);
@@ -93,8 +101,8 @@ public class SignInActivity extends AppCompatActivity
 
     public void signIn()
     {
-            String email_id = TIET_email_id.getText().toString();
-            if (email_id.equals(""))
+        String email_id = TIET_email_id.getText().toString();
+        if (email_id.equals(""))
             {
                 Toast.makeText(this,"Please enter valid email",Toast.LENGTH_SHORT).show();
             }
@@ -114,37 +122,34 @@ public class SignInActivity extends AppCompatActivity
 
     public void signInVolly(final String userId, final String Password)
     {
-        progressBar.setVisibility(View.VISIBLE);
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        //  String url = Constant.URL+"addSignUp"; // <----enter your post url here
-        String url = Constant.URL+"getSignIn?UserID="+userId+"&Password="+Password;
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+        String url = Constant.URL+"getSignIn";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,url, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
             {
                 try
                 {
-                    progressBar.setVisibility(View.INVISIBLE);
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if (status.equals("SUCCESS"))
+                    String msg = jsonObject.getString("msg");
+                    if (status.equals("1"))
                     {
-                        String userId = jsonObject.getString("UserID");
+                        String username = jsonObject.getString("username");
                         String email = jsonObject.getString("Email");
                         String mobileNo = jsonObject.getString("Mobile_No");
                         String userName = jsonObject.getString("Memb_Name");
                         String memberId = jsonObject.getString("membercode");
                         Constant.MEMBER_ID = memberId;
                         String city = jsonObject.getString("City");
-                        sessionManeger.createSession(userId,userName,email,mobileNo,memberId,city);
+                        sessionManeger.createSession(username,userName,email,mobileNo,memberId,city);
                         Intent intent=new Intent(SignInActivity.this,DashBoardActivity.class);
                         startActivity(intent);
                         finish();
                     }
                     else
                     {
-                        Toast.makeText(SignInActivity.this,""+status,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this,""+msg,Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JSONException e)
@@ -156,30 +161,26 @@ public class SignInActivity extends AppCompatActivity
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                //This code is executed if there is an error.
-                String message= "";
-                if (error instanceof ServerError)
-                {
-                    message = "The server could not be found. Please try again after some time!!";
-                }
-                else if (error instanceof TimeoutError)
-                {
-                    message = "Connection TimeOut! Please check your internet connection.";
-                }
-                System.out.println("error........"+error);
-                //This code is executed if there is an error.
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+                error.printStackTrace();
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Accept","application/json");
-                headers.put("Content-Type","application/json");
-                return headers;
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", userId);
+                params.put("Password",Password);
+                params.put("client_ip", ip);
+                return params;
             }
         };
-        MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MyRequestQueue.add(MyStringRequest);
+        MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
     }
 
     private void showCustomDialog()
@@ -219,9 +220,8 @@ public class SignInActivity extends AppCompatActivity
 
     public void forgotPassword(final String userId)
     {
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = Constant.URL+"ForgotPassword?UserID="+userId;
-        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+        String url = Constant.URL+"forgotPassword";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,url, new Response.Listener<String>()
         {
             @Override
             public void onResponse(String response)
@@ -230,15 +230,15 @@ public class SignInActivity extends AppCompatActivity
                 {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if (status.equals("SUCCESS"))
+                    String msg = jsonObject.getString("msg");
+                    if (status.equals("1"))
                     {
-                        String userId = jsonObject.getString("username");
-                        Toast.makeText(SignInActivity.this,"Link Send to your register email id",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this," "+msg,Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                     else
                     {
-                        Toast.makeText(SignInActivity.this,""+status,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this,""+msg,Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JSONException e)
@@ -248,31 +248,25 @@ public class SignInActivity extends AppCompatActivity
             }
         }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
             @Override
-            public void onErrorResponse(VolleyError error) {
-                //This code is executed if there is an error.
-                String message= "";
-                if (error instanceof ServerError)
-                {
-                    message = "The server could not be found. Please try again after some time!!";
-                }
-                else if (error instanceof TimeoutError)
-                {
-                    message = "Connection TimeOut! Please check your internet connection.";
-                }
-                System.out.println("error........"+error);
-                //This code is executed if there is an error.
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+                error.printStackTrace();
             }
         }) {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
+            public String getBodyContentType()
             {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Accept","application/json");
-                headers.put("Content-Type","application/json");
-                return headers;
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", userId);
+                return params;
             }
         };
-        MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MyRequestQueue.add(MyStringRequest);
+        MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
     }
 }

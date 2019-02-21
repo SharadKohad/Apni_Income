@@ -29,6 +29,7 @@
         <activity android:name=".activity.SpashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -50,7 +51,13 @@
         <activity android:name=".activity.OperatorTypeActivity" />
         <activity android:name=".activity.WithdrawalHistActivity" />
         <activity android:name=".activity.WithdrawActivity" />
-        <activity android:name=".activity.DTHActivity"></activity>
+        <activity android:name=".activity.DTHActivity" />
+        <activity android:name=".activity.MyNetworkList_Activity" />
+        <activity android:name=".activity.InvestmentActivity" />
+        <activity android:name=".activity.InvestmentHistoryActivity" />
+        <activity android:name=".activity.EarningReportActivity" />
+        <activity android:name=".activity.EarningReportHistoryActivity" />
+        <activity android:name=".activity.BinaryIncomeHistoryActivity"></activity>
     </application>
 
 </manifest>

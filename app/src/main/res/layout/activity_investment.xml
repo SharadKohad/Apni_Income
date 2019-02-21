@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.InvestmentActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_makeInvestment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/reacharg_back_arrow_make_investment"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/reacharg_back_arrow_make_investment"
+            android:text="Make Investment"
+            android:textSize="17dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="@color/black"
+                android:text="Package Amount is ₹1000,₹ 2000 3000,₹ 5000,₹ 10000,₹ 15000,,₹ 25000,₹ 50000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Package Amount*:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/box_shadow">
+
+                <Spinner
+                    android:id="@+id/spinnerAmont"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:autofillHints="Please select Amount"
+                    app:layout_constraintVertical_bias="0.498" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paid Amount*:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/box_shadow">
+
+                <TextView
+                    android:id="@+id/textviewPaidAmont"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="amount add 18% GST"
+                    android:gravity="center|left"
+                    android:paddingLeft="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Investment By*:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/black"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/box_shadow"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/tv_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Place"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"/>
+
+                <RadioGroup
+                    android:id="@+id/rediogroupplace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_place"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAYTM"
+                        android:textSize="15dp"
+                        android:checked="false"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BANK ACCOUNT"
+                        android:textSize="15dp"
+                        android:checked="false"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="@dimen/_10sdp" />
+
+                </RadioGroup>
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Attachment*:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:visibility="gone"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/box_shadow"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_choose_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
+                    android:text="Choose File" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No File Select"
+                    android:layout_marginLeft="@dimen/_15sdp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_investment_submit"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:background="@drawable/btn_rounded_green"
+                    android:text="Submit"
+                    android:textSize="@dimen/_8sdp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="@dimen/_30sdp"/>
+
+                <Button
+                    android:id="@+id/button_investment_history"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:background="@drawable/btn_rounded_green"
+                    android:text="Inv History"
+                    android:textSize="@dimen/_8sdp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

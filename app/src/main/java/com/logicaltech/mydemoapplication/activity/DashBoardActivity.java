@@ -147,7 +147,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile)
@@ -155,11 +156,20 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             intent = new Intent(this,ProfileActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_investment)
+        {
+            intent = new Intent(this,InvestmentActivity.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.nav_earning_report)
+        {
+            intent = new Intent(this,EarningReportActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_withdraw)
         {
             intent = new Intent(this,WithdrawActivity.class);
             startActivity(intent);
-
         } else if (id == R.id.nav_accountlist)
         {
             intent = new Intent(this,AccountListActivity.class);
@@ -191,7 +201,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     public void dashBoardData(final String memberId) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = Constant.URL+"getDashboardData?MemberID="+memberId;
+        String url = Constant.URL+"getDashboard?membercode="+memberId;
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
         {
             @Override
@@ -200,18 +210,10 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 try
                 {
                     JSONObject jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
-                    if (status.equals("SUCCESS"))
-                    {
-                        String total_Balance = jsonObject.getString("Total_Balance");
-                        Constant.TOTAL_BALANCE = total_Balance;
-                        TextViewTotalBalance.setText(total_Balance);
-                        Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(DashBoardActivity.this,"fail",Toast.LENGTH_SHORT).show();
-                    }
+                    String total_Balance = jsonObject.getString("Total_Balance");
+                    Constant.TOTAL_BALANCE = total_Balance;
+                    TextViewTotalBalance.setText(total_Balance);
+                    Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e)
                 {
