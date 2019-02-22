@@ -180,6 +180,17 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             intent.putExtra("token","0");
             startActivity(intent);
         }
+        else if(id==R.id.nav_rwallet)
+        {
+            intent = new Intent(this,WalletActivity.class);
+            startActivity(intent);
+        }
+
+        else if(id==R.id.nav_support)
+        {
+            intent = new Intent(this,SupportActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_logout)
         {
             new AlertDialog.Builder(DashBoardActivity.this)

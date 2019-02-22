@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SupportActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_reacharg_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imageview_back_arrow_compose"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/imageview_back_arrow_compose"
+            android:text="Compose"
+            android:textSize="17dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayout_reacharg_top">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_getoutboxhist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_compont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end|right"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="36dp"
+        android:clickable="true"
+        android:src="@drawable/ic_create"
+        android:tint="@android:color/white"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/white" />
+
+
+
+</RelativeLayout>

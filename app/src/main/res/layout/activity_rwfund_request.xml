@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.RWFundRequestActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_reacharg_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imageview_back_arrow_rwallet_fund_request"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/imageview_back_arrow_rwallet_fund_request"
+            android:text="RWallet Fund Request"
+            android:textSize="17dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_RW_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/EditText_RW_amount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center|left"
+                android:inputType="number"
+                android:hint="Enter Amount"
+                android:textColor="@color/dim_grey"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/edit_text_RWbank_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/dim_grey"
+                android:gravity="center|left"
+                android:hint="Enter Bank Name"
+                android:textSize="@dimen/_12sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/edit_text_RWaccount_no"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center|left"
+                android:inputType="text"
+                android:hint="Enter Account No."
+                android:textColor="@color/dim_grey"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_fatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/shadow_background_textview">
+
+
+            <EditText
+                android:id="@+id/edit_text_trancastion_no"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center|left"
+                android:inputType="text"
+                android:hint="Transaction No."
+                android:textColor="@color/dim_grey"
+                android:paddingLeft="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:background="#0000" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_RW_submit"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/btn_rounded_green"
+                android:text="Submit"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/_30sdp"/>
+
+            <Button
+                android:id="@+id/button_RW_history"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:background="@drawable/btn_rounded_green"
+                android:text="History"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -57,7 +57,11 @@
         <activity android:name=".activity.InvestmentHistoryActivity" />
         <activity android:name=".activity.EarningReportActivity" />
         <activity android:name=".activity.EarningReportHistoryActivity" />
-        <activity android:name=".activity.BinaryIncomeHistoryActivity"></activity>
+        <activity android:name=".activity.BinaryIncomeHistoryActivity" />
+        <activity android:name=".activity.WalletActivity" />
+        <activity android:name=".activity.RWFundRequestActivity" />
+        <activity android:name=".activity.RWallet_History_Activity" />
+        <activity android:name=".activity.SupportActivity"></activity>
     </application>
 
 </manifest>
