@@ -53,7 +53,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     List<Banner> banners=new ArrayList<>();
     Intent intent;
     SessionManeger sessionManeger;
-    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName;
+    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName,TextViewDirectIncome,TextViewTotalROI,TextViewTotalBinaryIncome;
     String memberId;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,6 +76,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
         TextViewUserName = (TextView)  hView.findViewById(R.id.textviewprofilename);
         TextViewUserEmail = (TextView)  hView.findViewById(R.id.textviewprofileemailid);
+
 
         init();
 
@@ -108,9 +109,13 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         bannerSlider.setBanners(banners);
     }
 
-    public void init() {
+    public void init()
+    {
         bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         TextViewTotalBalance = (TextView) findViewById(R.id.text_view_total_balance);
+        TextViewDirectIncome = (TextView) findViewById(R.id.text_view_total_direct_income);
+        TextViewTotalROI = (TextView) findViewById(R.id.text_view_total_roi);
+        TextViewTotalBinaryIncome = (TextView) findViewById(R.id.text_view_total_binary_income);
         TextViewProfileName = (TextView) findViewById(R.id.textView_userName);
     }
 
@@ -210,7 +215,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    public void dashBoardData(final String memberId) {
+    public void dashBoardData(final String memberId)
+    {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getDashboard?membercode="+memberId;
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
@@ -222,8 +228,16 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 {
                     JSONObject jsonObject = new JSONObject(response);
                     String total_Balance = jsonObject.getString("Total_Balance");
+                    String Total_Direct_Income = jsonObject.getString("Total_Direct_Income");
+                    String Total_ROI = jsonObject.getString("Total_ROI");
+                    String Total_Binary_Income = jsonObject.getString("Total_Binary_Income");
                     Constant.TOTAL_BALANCE = total_Balance;
+                    Constant.DIRECT_INCOME = Total_Direct_Income;
+                    Constant.TOTAL_BINARY = Total_Binary_Income;
                     TextViewTotalBalance.setText(total_Balance);
+                    TextViewDirectIncome.setText(Total_Direct_Income);
+                    TextViewTotalROI.setText(Total_ROI);
+                    TextViewTotalBinaryIncome.setText(Total_Binary_Income);
                     Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e)

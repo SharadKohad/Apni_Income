@@ -26,15 +26,15 @@ public class Earning_Report_Adapter extends RecyclerView.Adapter<Earning_Report_
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.investment_history_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.earning_report_layout, parent, false);
         return new Earning_Report_Adapter.RecyclerViewHolder(view);
     }
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position)
     {
         final EarningReportModel investmentModel = orderList.get(position);
-        holder.TV_Create_Date.setText(investmentModel.getCreated_at());
-        holder.TV_Provide_Id.setText(investmentModel.getProvide_id());
+        holder.TV_Create_Date.setText("Cr Date: "+investmentModel.getCreated_at());
+        holder.TV_Provide_Id.setText("Id: "+ investmentModel.getProvide_id());
         holder.TV_Amount.setText(investmentModel.getAmount());
         holder.TV_Package.setText(investmentModel.getEarning_package());
     }

@@ -30,10 +30,10 @@ public class Investment_His_Adapter extends RecyclerView.Adapter<Investment_His_
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position)
     {
         final InvestmentModel investmentModel = orderList.get(position);
-        holder.TV_Commit_no.setText(investmentModel.getCommit_no());
-        holder.TV_Time.setText(investmentModel.getTime());
+        holder.TV_Commit_no.setText("Commit No: "+investmentModel.getCommit_no());
+        holder.TV_Time.setText("Time: "+investmentModel.getTime());
         holder.TV_Amount.setText(investmentModel.getAmount());
-        holder.TV_BTC_Type.setText(investmentModel.getBTC_Type());
+        holder.TV_BTC_Type.setText("BTC_Type: "+investmentModel.getBTC_Type());
         holder.TV_Status.setText(investmentModel.getProvide_Status());
     }
     @Override

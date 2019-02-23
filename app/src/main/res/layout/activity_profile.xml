@@ -75,7 +75,9 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_profile_icon"
+                />
 
             <TextView
                 android:layout_width="match_parent"
@@ -100,7 +102,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_account"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -125,7 +128,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_direct_income"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -150,7 +154,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_downline_team"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -175,7 +180,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_recharge_history"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -200,7 +206,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10sdp" />
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/icon_withdraw_history"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -212,6 +219,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

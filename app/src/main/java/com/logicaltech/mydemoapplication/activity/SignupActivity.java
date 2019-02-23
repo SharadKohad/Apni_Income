@@ -2,6 +2,7 @@ package com.logicaltech.mydemoapplication.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -47,10 +49,10 @@ public class SignupActivity extends AppCompatActivity
     TextInputEditText TIET_mobileNo,TIET_email_id,TIET_name,TIET_sponsorId;
     private RadioGroup radioGroupPlace;
     private RadioButton radioButtonPlace;
-    int mobileToken=0;
     String place="";
     CheckBox checkBox_SponserId;
     SessionManeger sessionManeger;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,9 +60,11 @@ public class SignupActivity extends AppCompatActivity
         setContentView(R.layout.activity_signup);
         sessionManeger = new SessionManeger(getApplicationContext());
         init();
-        fab_signUp.setOnClickListener(new View.OnClickListener() {
+        fab_signUp.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 signUp();
             }
         });
@@ -74,6 +78,7 @@ public class SignupActivity extends AppCompatActivity
         TIET_sponsorId = (TextInputEditText) findViewById(R.id.tiet_sponsorid);
         radioGroupPlace = (RadioGroup) findViewById(R.id.rediogroupplace);
         checkBox_SponserId = (CheckBox) findViewById(R.id.checkboxspoinerId);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_signup);
 
         radioGroupPlace.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("ResourceType")
@@ -102,7 +107,8 @@ public class SignupActivity extends AppCompatActivity
         });
     }
 
-    public void signUp() {
+    public void signUp()
+    {
         String mobileNo = TIET_mobileNo.getText().toString();
         if (mobileNo.equals("")|| mobileNo.length()<10)
         {
@@ -137,13 +143,25 @@ public class SignupActivity extends AppCompatActivity
                             }
                             else
                             {
+                                progressBar.setVisibility(View.VISIBLE);
+                                fab_signUp.setAlpha(0f);
+                                new Handler().postDelayed(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        progressBar.setVisibility(View.GONE);
+                                        fab_signUp.setAlpha(1f);
+                                    }
+                                }, 2000);
+
                                 registration1(mobileNo,email_id,name,place,sponsorId,"255.255.255.0");
                             }
                         }
                     }
+                }
             }
         }
-    }
 
     public void signInVolly(final String userId, final String Password) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());

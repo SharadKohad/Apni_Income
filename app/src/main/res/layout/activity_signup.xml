@@ -52,7 +52,8 @@
                 android:fontFamily="sans-serif-light"
                 android:text="Hope you enjoy the stay"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="@dimen/_20sdp"/>
 
 
 
@@ -68,10 +69,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginRight="-4dp"
-                    android:hint="Mobile Number"
+                    android:hint="  Mobile Number"
                     android:inputType="number"
                     android:maxLength="10"
                     android:maxLines="1"
+                    android:drawableLeft="@drawable/ic_phone_android"
                     android:singleLine="true"
                     android:textColor="@color/grey_10"
                     android:theme="@style/EditText.White" />
@@ -94,7 +96,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginRight="-4dp"
-                    android:hint="Email"
+                    android:hint="  Email"
+                    android:drawableLeft="@drawable/ic_email"
                     android:inputType="textEmailAddress"
                     android:maxLength="50"
                     android:maxLines="1"
@@ -120,7 +123,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"
-                android:hint="Member Name"
+                android:hint="  Member Name"
+                android:drawableLeft="@drawable/ic_person_grey"
                 android:inputType="text"
                 android:maxLength="50"
                 android:maxLines="1"
@@ -257,7 +261,7 @@
 
 
                 <ProgressBar
-                    android:id="@+id/progress_bar"
+                    android:id="@+id/progress_bar_signup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

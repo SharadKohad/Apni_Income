@@ -11,14 +11,14 @@
     <RelativeLayout
         android:id="@+id/relative_layout_profileDetail"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
+        android:layout_height="@dimen/_100sdp"
         android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/img_back_arrow_profile_detail"
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
-            android:padding="@dimen/_10sdp"
+            android:padding="@dimen/_12sdp"
             android:src="@drawable/ic_arrow_back" />
 
     </RelativeLayout>
@@ -29,7 +29,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="70dp"
         android:src="@drawable/profile_icon" />
 
     <ScrollView
@@ -101,13 +101,13 @@
             android:background="@drawable/shadow_background_textview">
 
 
-
             <EditText
                 android:id="@+id/EditText_PhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:gravity="center|left"
                 android:inputType="number"
+                android:hint="Enter Mobile No"
                 android:textColor="@color/dim_grey"
                 android:paddingLeft="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"

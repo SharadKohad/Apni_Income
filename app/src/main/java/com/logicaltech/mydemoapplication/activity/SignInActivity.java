@@ -3,7 +3,9 @@ package com.logicaltech.mydemoapplication.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,6 +103,18 @@ public class SignInActivity extends AppCompatActivity
 
     public void signIn()
     {
+        progressBar.setVisibility(View.VISIBLE);
+        fab_signin.setAlpha(0f);
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                progressBar.setVisibility(View.GONE);
+                fab_signin.setAlpha(1f);
+            }
+        }, 1000);
+
         String email_id = TIET_email_id.getText().toString();
         if (email_id.equals(""))
             {
@@ -213,7 +227,6 @@ public class SignInActivity extends AppCompatActivity
                 }
             }
         });
-
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
