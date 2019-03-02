@@ -215,6 +215,7 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/radiobuttonmale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MALE"
@@ -223,6 +224,7 @@
                     android:textColor="@color/black"/>
 
                 <RadioButton
+                    android:id="@+id/radiobuttonfemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FEMALE"
@@ -262,7 +264,6 @@
                 android:textColor="@color/white" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 

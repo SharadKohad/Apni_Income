@@ -1,10 +1,20 @@
 package com.logicaltech.mydemoapplication.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -26,10 +36,14 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.logicaltech.mydemoapplication.R;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +54,14 @@ import utility.SessionManeger;
 public class InvestmentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
     String[] amount = { "1000", "2000", "3000", "5000", "10000", "15000", "25000", "50000"};
-    String investment_amount = "",paidamount="",memberId,investmentBy="";
+    String investment_amount = "",paidamount="",memberId,investmentBy="",base64Sting,filePath;
     TextView textView_paidAmount;
     Button btn_file_select,btn_proccess,btn_investment_history;
     SessionManeger sessionManeger;
     private RadioGroup radioGroupInveBy;
     private RadioButton radioButtonInveBy;
     ImageView imageView_back_arrow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -81,13 +96,10 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
                 finish();
             }
         });
-
         sessionManeger = new SessionManeger(getApplicationContext());
-
         HashMap<String, String> hashMap = sessionManeger.getUserDetails();
         memberId = hashMap.get(SessionManeger.MEMBER_ID);
         spin.setOnItemSelectedListener(this);
-
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,amount);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -112,6 +124,15 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
                 addInvestment(memberId,investment_amount,investmentBy,Constant.IMG_URL);
             }
         });
+
+        btn_file_select.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                    pickImage();
+            }
+        });
     }
 
     @Override
@@ -123,16 +144,47 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
         int totalamount = ((amt*118)/100);
         textView_paidAmount.setText(""+totalamount);
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent)
     {
 
     }
 
+    public void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+        intent.putExtra("outputX", 256);
+        intent.putExtra("outputY", 256);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 1);
+    }
 
-    public void addInvestment(final String membercode, final String USD_Amount,final String BTC_Type, final String attachment)
-    {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK)
+        {
+            return;
+        }
+        if (requestCode == 1)
+        {
+            final Bundle extras = data.getExtras();
+            if (extras != null)
+            {
+                //Get image
+                Bitmap newProfilePic = extras.getParcelable("data");
+            }
+            filePath = data.toString();
+
+            getBase64();
+
+        }
+    }
+
+    public void addInvestment(final String membercode, final String USD_Amount,final String BTC_Type, final String attachment) {
         String url = Constant.URL+"addInvestment";
         StringRequest jsonObjRequest = new StringRequest(Request.Method.PUT,url, new Response.Listener<String>()
         {
@@ -183,5 +235,41 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
             }
         };
         MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
+    }
+
+    private String getBase64() {
+
+        File file = new File(filePath);  //file Path
+        byte[] b = new byte[(int) file.length()];
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream.read(b);
+            for (int j = 0; j < b.length; j++) {
+                System.out.print((char) b[j]);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found.");
+            e.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("Error Reading The File.");
+            e1.printStackTrace();
+        }
+
+        byte[] byteFileArray = new byte[0];
+        try {
+            byteFileArray = FileUtils.readFileToByteArray(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String base64String = "";
+        if (byteFileArray.length > 0) {
+            base64String = android.util.Base64.encodeToString(byteFileArray, android.util.Base64.NO_WRAP);
+            Log.i("File Base64 string", "IMAGE PARSE ==>" + base64String);
+        }
+        System.out.print(" My URL"+base64String);
+        System.out.print(" My URL1"+base64Sting);
+        return base64Sting;
+
     }
 }

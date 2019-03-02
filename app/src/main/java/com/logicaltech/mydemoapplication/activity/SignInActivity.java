@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -47,15 +48,16 @@ import utility.SessionManeger;
 public class SignInActivity extends AppCompatActivity
 {
     LinearLayout linearLayoutSignUp;
-    FloatingActionButton fab_signin;
-    TextInputEditText TIET_email_id,TIET_password;
+    FloatingActionButton fab_signin,fab_signin1;
+    TextInputLayout textInputLayoutOtp;
+    TextInputEditText TIET_email_id,TIET_password,TIET_Otp;
     ProgressBar progressBar;
     SessionManeger sessionManeger;
     TextView TVforgotpassword;
     Dialog dialog;
     WindowManager.LayoutParams lp;
-    String ip= "255.255.255.0";
-
+    String ip= "255.255.255.0",otp,user_id,password;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -68,10 +70,13 @@ public class SignInActivity extends AppCompatActivity
     }
     public void init()
     {
+        textInputLayoutOtp = (TextInputLayout) findViewById(R.id.textinputlayout_otp);
         linearLayoutSignUp = (LinearLayout)findViewById(R.id.llsign_up_for_account);
         TIET_email_id = (TextInputEditText)findViewById(R.id.tiet_userid_signin);
         TIET_password = (TextInputEditText)findViewById(R.id.tiet_password_signin);
+        TIET_Otp = (TextInputEditText) findViewById(R.id.tiet_otp);
         fab_signin = (FloatingActionButton) findViewById(R.id.fab_signin);
+        fab_signin1 = (FloatingActionButton) findViewById(R.id.fab_signin1);
         progressBar = (ProgressBar) findViewById(R.id.progress_barsignin);
         TVforgotpassword = (TextView) findViewById(R.id.forgotpassword);
         linearLayoutSignUp.setOnClickListener(new View.OnClickListener()
@@ -93,6 +98,34 @@ public class SignInActivity extends AppCompatActivity
             }
         });
 
+        fab_signin1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String user_otp = TIET_Otp.getText().toString();
+                if (user_otp.equals(otp))
+                {
+                    signInVolly(user_id,password);
+                    progressBar.setVisibility(View.VISIBLE);
+                    fab_signin1.setAlpha(0f);
+                    new Handler().postDelayed(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            fab_signin1.setAlpha(1f);
+                        }
+                    }, 2000);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Wrong OTP",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         TVforgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,8 +134,7 @@ public class SignInActivity extends AppCompatActivity
         });
     }
 
-    public void signIn()
-    {
+    public void signIn() {
         progressBar.setVisibility(View.VISIBLE);
         fab_signin.setAlpha(0f);
         new Handler().postDelayed(new Runnable()
@@ -113,29 +145,29 @@ public class SignInActivity extends AppCompatActivity
                 progressBar.setVisibility(View.GONE);
                 fab_signin.setAlpha(1f);
             }
-        }, 1000);
+        }, 2000);
 
-        String email_id = TIET_email_id.getText().toString();
-        if (email_id.equals(""))
+        user_id = TIET_email_id.getText().toString();
+        if (user_id.equals(""))
             {
                 Toast.makeText(this,"Please enter valid email",Toast.LENGTH_SHORT).show();
             }
             else
             {
-                String password = TIET_password.getText().toString();
+                password = TIET_password.getText().toString();
                 if (password.equals(""))
                 {
                     Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    signInVolly(email_id,password);
+                    //signInVolly(email_id,password);
+                    postOTP_Genrate(user_id);
                 }
             }
     }
 
-    public void signInVolly(final String userId, final String Password)
-    {
+    public void signInVolly(final String userId, final String Password) {
         String url = Constant.URL+"getSignIn";
         StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,url, new Response.Listener<String>()
         {
@@ -171,14 +203,16 @@ public class SignInActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+        }, new Response.ErrorListener()
+        { //Create an error listener to handle errors appropriately.
             @Override
             public void onErrorResponse(VolleyError error)
             {
                 VolleyLog.d("volley", "Error: " + error.getMessage());
                 error.printStackTrace();
             }
-        }) {
+        })
+        {
             @Override
             public String getBodyContentType()
             {
@@ -197,8 +231,7 @@ public class SignInActivity extends AppCompatActivity
         MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
     }
 
-    private void showCustomDialog()
-    {
+    private void showCustomDialog() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dialog.setContentView(R.layout.forgot_password);
@@ -231,8 +264,7 @@ public class SignInActivity extends AppCompatActivity
         dialog.getWindow().setAttributes(lp);
     }
 
-    public void forgotPassword(final String userId)
-    {
+    public void forgotPassword(final String userId) {
         String url = Constant.URL+"forgotPassword";
         StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,url, new Response.Listener<String>()
         {
@@ -281,5 +313,65 @@ public class SignInActivity extends AppCompatActivity
             }
         };
         MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
+    }
+
+    public void postOTP_Genrate(final String userId) {
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        String url = Constant.URL+"getOTP?username="+userId;
+        StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if (status.equals("1"))
+                    {
+                        otp = jsonObject.getString("OTP");
+                        System.out.println("OTP: "+otp);
+                        textInputLayoutOtp.setVisibility(View.VISIBLE);
+                        fab_signin.setVisibility(View.GONE);
+                        fab_signin1.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        Toast.makeText(SignInActivity.this,""+status,Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                String message= "";
+                if (error instanceof ServerError)
+                {
+                    message = "The server could not be found. Please try again after some time!!";
+                }
+                else if (error instanceof TimeoutError)
+                {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                System.out.println("error........"+error);
+                //This code is executed if there is an error.
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Accept","application/json");
+                headers.put("Content-Type","application/json");
+                return headers;
+            }
+        };
+        MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MyRequestQueue.add(MyStringRequest);
     }
 }

@@ -53,7 +53,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     List<Banner> banners=new ArrayList<>();
     Intent intent;
     SessionManeger sessionManeger;
-    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName,TextViewDirectIncome,TextViewTotalROI,TextViewTotalBinaryIncome;
+    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName,TextViewDirectIncome,TextViewTotalROI,TextViewTotalBinaryIncome,TextViewLevelIncome,TextViewDirectTeam;
     String memberId;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,7 +76,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
         TextViewUserName = (TextView)  hView.findViewById(R.id.textviewprofilename);
         TextViewUserEmail = (TextView)  hView.findViewById(R.id.textviewprofileemailid);
-
 
         init();
 
@@ -105,7 +104,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         banners.add(new DrawableBanner(R.drawable.slider2));
         banners.add(new DrawableBanner(R.drawable.slider3));
         banners.add(new DrawableBanner(R.drawable.slider4));
-        banners.add(new DrawableBanner(R.drawable.slider5));
         bannerSlider.setBanners(banners);
     }
 
@@ -117,6 +115,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         TextViewTotalROI = (TextView) findViewById(R.id.text_view_total_roi);
         TextViewTotalBinaryIncome = (TextView) findViewById(R.id.text_view_total_binary_income);
         TextViewProfileName = (TextView) findViewById(R.id.textView_userName);
+        TextViewLevelIncome = (TextView) findViewById(R.id.text_view_total_level_income);
+        TextViewDirectTeam = (TextView) findViewById(R.id.text_view_total_direct_team);
     }
 
     @Override
@@ -231,6 +231,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     String Total_Direct_Income = jsonObject.getString("Total_Direct_Income");
                     String Total_ROI = jsonObject.getString("Total_ROI");
                     String Total_Binary_Income = jsonObject.getString("Total_Binary_Income");
+                    String Level_Wallet = jsonObject.getString("Level_Wallet");
+                    String Total_Direct_Referral = jsonObject.getString("Total_Direct_Referral");
                     Constant.TOTAL_BALANCE = total_Balance;
                     Constant.DIRECT_INCOME = Total_Direct_Income;
                     Constant.TOTAL_BINARY = Total_Binary_Income;
@@ -238,6 +240,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     TextViewDirectIncome.setText(Total_Direct_Income);
                     TextViewTotalROI.setText(Total_ROI);
                     TextViewTotalBinaryIncome.setText(Total_Binary_Income);
+                    TextViewLevelIncome.setText(Level_Wallet);
+                    TextViewDirectTeam.setText(Total_Direct_Referral);
+
                     Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e)

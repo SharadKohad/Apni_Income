@@ -15,7 +15,7 @@
         android:background="@color/colorPrimary">
 
         <ImageView
-            android:id="@+id/reacharg_back_arrow_make_investment"
+            android:id="@+id/reacharg_back_arrow_update_kyc"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:src="@drawable/ic_arrow_back"
@@ -24,8 +24,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_toRightOf="@+id/reacharg_back_arrow_make_investment"
-            android:text="Make Investment"
+            android:layout_toRightOf="@+id/reacharg_back_arrow_update_kyc"
+            android:text="Update KYC Detail"
             android:textSize="17dp"
             android:paddingLeft="10dp"
             android:textColor="@color/white"
@@ -47,14 +47,33 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:textColor="@color/black"
-                android:text="Package Amount is ₹1000,₹ 2000 3000,₹ 5000,₹ 10000,₹ 15000,,₹ 25000,₹ 50000"/>
+                android:text="Pan Card No:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/box_shadow">
+
+                <EditText
+                    android:id="@+id/edittextPancartNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Enter PAN card Number"
+                    android:gravity="center|left"
+                    android:background="@color/white"
+                    android:paddingLeft="@dimen/_10sdp"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Package Amount*:"
+                android:text="Address Type:"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textColor="@color/black"/>
 
@@ -66,7 +85,7 @@
                 android:background="@drawable/box_shadow">
 
                 <Spinner
-                    android:id="@+id/spinnerAmont"
+                    android:id="@+id/spinnerAddress"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +102,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Paid Amount*:"
+                android:text="Enter Document No*:"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textColor="@color/black"/>
 
@@ -94,74 +113,22 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:background="@drawable/box_shadow">
 
-                <TextView
-                    android:id="@+id/textviewPaidAmont"
+                <EditText
+                    android:id="@+id/textviewDocumentNo"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="amount add 18% GST"
+                    android:hint="Enter Documents No:"
                     android:gravity="center|left"
+                    android:background="@color/white"
                     android:paddingLeft="@dimen/_10sdp"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Investment By*:"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:textColor="@color/black"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/box_shadow"
-                android:padding="@dimen/_10sdp">
-
-                <TextView
-                    android:id="@+id/tv_place"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Place"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp"/>
-
-                <RadioGroup
-                    android:id="@+id/rediogroupplace"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tv_place"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PAYTM"
-                        android:textSize="15dp"
-                        android:checked="false"
-                        android:textColor="@color/black" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BANK ACCOUNT"
-                        android:textSize="15dp"
-                        android:checked="false"
-                        android:textColor="@color/black"
-                        android:layout_marginLeft="@dimen/_10sdp" />
-
-                </RadioGroup>
-
-
-            </RelativeLayout>
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Attachment*:"
+                android:text="Pan Attachment*:"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:textColor="@color/black"/>
 
@@ -172,53 +139,91 @@
                 android:background="@drawable/box_shadow">
 
                 <Button
-                    android:id="@+id/btn_choose_file"
+                    android:id="@+id/btn_choose_file_kyc"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_35sdp"
                     android:text="Choose File" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/textview_pancard_attachment"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No File Select"
                     android:layout_marginLeft="@dimen/_15sdp"/>
 
+                <ImageView
+                    android:id="@+id/imageViewPanCard"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp" />
+
+
             </LinearLayout>
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address Attachment*:"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/box_shadow">
 
                 <Button
-                    android:id="@+id/button_investment_submit"
-                    android:layout_width="@dimen/_100sdp"
+                    android:id="@+id/btn_choose_address_file_kyc"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/_35sdp"
-                    android:background="@drawable/btn_rounded_green"
-                    android:text="Submit"
-                    android:textSize="@dimen/_8sdp"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="@dimen/_30sdp"/>
+                    android:text="Choose File" />
 
-                <Button
-                    android:id="@+id/button_investment_history"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_marginLeft="@dimen/_30sdp"
-                    android:background="@drawable/btn_rounded_green"
-                    android:text="Inv History"
-                    android:textSize="@dimen/_8sdp"
-                    android:textColor="@color/white" />
+                <TextView
+                    android:id="@+id/textview_address_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No File Select"
+                    android:layout_marginLeft="@dimen/_15sdp"/>
+
+                <ImageView
+                    android:id="@+id/imageViewAddress"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp" />
 
             </LinearLayout>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp">
+
+                <Button
+                    android:id="@+id/button_kyc_submit"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/btn_rounded_green"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp" />
+
+                <TextView
+                    android:id="@+id/textview_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_below="@+id/button_kyc_submit"
+                    android:textColor="@color/colorAccent" />
+
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </LinearLayout>

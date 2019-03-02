@@ -70,7 +70,8 @@ public class SignupActivity extends AppCompatActivity
         });
     }
 
-    public void init() {
+    public void init()
+    {
         fab_signUp = (FloatingActionButton) findViewById(R.id.fab_signup);
         TIET_mobileNo = (TextInputEditText)findViewById(R.id.tiet_mobileno);
         TIET_email_id = (TextInputEditText)findViewById(R.id.tied_email_id);
@@ -88,7 +89,8 @@ public class SignupActivity extends AppCompatActivity
                 radioButtonPlace=(RadioButton)group.findViewById(checkedId);
                 if (null != radioButtonPlace && checkedId > -1)
                 {
-                    place = radioButtonPlace.getText().toString();                }
+                    place = radioButtonPlace.getText().toString();
+                }
                 }
         });
 

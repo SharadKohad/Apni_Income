@@ -45,7 +45,7 @@ public class ProfileDetailActivity extends AppCompatActivity
     private String userId,userMobile,userName,userEmail,city,memberId;
     ImageView IV_Back_Arrow;
     private RadioGroup radioGroupGender;
-    private RadioButton radioButtonGender;
+    private RadioButton radioButtonGender,radioButton_male;
     String gender="";
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,6 +69,7 @@ public class ProfileDetailActivity extends AppCompatActivity
         ET_MobileNo.setText(userMobile);
         ET_City.setText(city);
 
+        postProfileDetail(memberId);
 
     }
 
@@ -83,6 +84,7 @@ public class ProfileDetailActivity extends AppCompatActivity
         ET_Address = (EditText) findViewById(R.id.EditText_Address);
         ET_fatherName = (EditText) findViewById(R.id.EditText_fatherName);
         IV_Back_Arrow = (ImageView) findViewById(R.id.img_back_arrow_profile_detail);
+        radioButton_male = (RadioButton) findViewById(R.id.radiobuttonmale);
 
         radioGroupGender = (RadioGroup) findViewById(R.id.rediogroupplace);
 
@@ -127,8 +129,7 @@ public class ProfileDetailActivity extends AppCompatActivity
         });
     }
 
-    public void putEditProfile(final String memberId,final String name,final String gender,final String country,final String emailId,final String city,final String flag,final String Address1,final String father_name)
-    {
+    public void putEditProfile(final String memberId,final String name,final String gender,final String country,final String emailId,final String city,final String flag,final String Address1,final String father_name) {
         String url = Constant.URL+"editProfile";
         StringRequest jsonObjRequest = new StringRequest(Request.Method.PUT,url, new Response.Listener<String>()
         {
@@ -183,6 +184,70 @@ public class ProfileDetailActivity extends AppCompatActivity
                 params.put("Gender", gender);
                 params.put("M_COUNTRY", country);
                 params.put("father_name",father_name);
+                return params;
+            }
+        };
+        MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
+    }
+
+    public void postProfileDetail(final String membercode)
+    {
+        String url = Constant.URL+"getProfileDtl";
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,url, new Response.Listener<String>()
+        {
+            @Override
+            public void onResponse(String response)
+            {
+                try
+                {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    String msg = jsonObject.getString("msg");
+                    if (status.equals("1"))
+                    {
+                        String Address1 = jsonObject.getString("Address1");
+                        String father_name = jsonObject.getString("father_name");
+                        String Gender = jsonObject.getString("Gender");
+                        ET_Address.setText(""+Address1);
+                        ET_fatherName.setText(""+father_name);
+
+                        if (Gender.equals("M"))
+                        {
+                            radioButton_male.setChecked(true);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(ProfileDetailActivity.this,""+msg,Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("membercode", membercode);
                 return params;
             }
         };
