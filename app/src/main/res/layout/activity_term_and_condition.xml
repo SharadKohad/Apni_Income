@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TermAndConditionActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_reacharg_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/term_and_condition_back_arrow"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/term_and_condition_back_arrow"
+            android:text="Term And Codition"
+            android:textSize="17dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:gravity="center|left"/>
+
+    </RelativeLayout>
+
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativelayout_reacharg_top"/>
+
+</RelativeLayout>

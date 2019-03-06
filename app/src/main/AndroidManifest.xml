@@ -4,9 +4,13 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+<!--
     <uses-permission android:name="android.permission.SEND_SMS" />
+-->
     <uses-permission android:name="android.permission.INTERNET" />
+<!--
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+-->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,6 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.TermAndConditionActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".WebActivity" />
@@ -64,7 +69,7 @@
         <activity android:name=".activity.RWFundRequestActivity" />
         <activity android:name=".activity.RWallet_History_Activity" />
         <activity android:name=".activity.SupportActivity" />
-        <activity android:name=".activity.UpdateKYCActivity"></activity>
+        <activity android:name=".activity.UpdateKYCActivity" />
     </application>
 
 </manifest>

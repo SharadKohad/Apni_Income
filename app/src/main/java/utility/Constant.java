@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public class Constant
 {
-    public static final String URL = "http://site3.bidbch.com/api/";
+    public static final String URL = "http://api.apniincome.com/api/";
+
     public static String TOTAL_BALANCE = "";
     public static String DIRECT_INCOME = "";
     public static String TOTAL_BINARY="";
@@ -21,4 +22,5 @@ public class Constant
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
 }

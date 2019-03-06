@@ -44,9 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_below="@+id/textinputlayout_mobilenumber"
             android:background="@drawable/box_shadow">
-
 
             <TextView
                 android:id="@+id/TextView_dth_operator"
@@ -60,8 +58,8 @@
                 android:textSize="@dimen/_12sdp"
                 android:background="#0000" />
 
-        </LinearLayout>
 
+        </LinearLayout>
 
 
 

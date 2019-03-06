@@ -23,7 +23,8 @@
         <item
             android:id="@+id/nav_withdraw"
             android:icon="@drawable/ic_withdraw"
-            android:title="WithDraw" />
+            android:title="WithDraw"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_accountlist"
             android:icon="@drawable/ic_account_playlist_add_black"
@@ -42,6 +43,11 @@
             android:id="@+id/nav_support"
             android:icon="@drawable/icon_recharge"
             android:title="Support" />
+
+        <item
+            android:id="@+id/nav_term_And_Condition"
+            android:icon="@drawable/icon_recharge"
+            android:title="Term And Condition" />
 
         <item
             android:id="@+id/nav_logout"

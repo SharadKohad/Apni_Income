@@ -105,8 +105,7 @@ public class RechargeActivity extends AppCompatActivity
             }
         });
 
-        IV_Contact_Access.setOnClickListener(new View.OnClickListener()
-        {
+        IV_Contact_Access.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -114,8 +113,7 @@ public class RechargeActivity extends AppCompatActivity
             }
         });
 
-        TV_Operator.setOnClickListener(new View.OnClickListener()
-        {
+        TV_Operator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -177,6 +175,7 @@ public class RechargeActivity extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, 1);
     }
+
     public void askForContactPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -194,8 +193,7 @@ public class RechargeActivity extends AppCompatActivity
         }
     }
 
-    public void putRecharge(final String member_Id, final String recharge_type, final String operator, final String amount, final String number)
-    {
+    public void putRecharge(final String member_Id, final String recharge_type, final String operator, final String amount, final String number) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"addRecharge?MemberID="+member_Id+"&RechargeType="+recharge_type+"&Operator="+operator+"&Amount="+amount+"&Number="+number+"&DeviceType=Android";
         StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>()
@@ -252,8 +250,7 @@ public class RechargeActivity extends AppCompatActivity
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void recharge()
-    {
+    public void recharge() {
         String mobile_no = textInputEditTextMobileNumber.getText().toString();
         if (mobile_no.equals(""))
         {
@@ -289,4 +286,5 @@ public class RechargeActivity extends AppCompatActivity
             }
         }
     }
+
 }

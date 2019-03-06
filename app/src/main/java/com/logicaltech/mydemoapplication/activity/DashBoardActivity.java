@@ -129,26 +129,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dash_board, menu);
-        return true;
-    }*/
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -196,6 +176,11 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             intent = new Intent(this,SupportActivity.class);
             startActivity(intent);
         }
+        else if (id==R.id.nav_term_And_Condition)
+        {
+            intent = new Intent(this,TermAndConditionActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_logout)
         {
             new AlertDialog.Builder(DashBoardActivity.this)
@@ -215,8 +200,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-    public void dashBoardData(final String memberId)
-    {
+    public void dashBoardData(final String memberId) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = Constant.URL+"getDashboard?membercode="+memberId;
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>()
