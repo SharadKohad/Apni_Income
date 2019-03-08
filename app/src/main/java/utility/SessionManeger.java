@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.logicaltech.mydemoapplication.activity.DashBoardActivity;
-import com.logicaltech.mydemoapplication.activity.SignInActivity;
+import com.logicaltech.apniincome.activity.DashBoardActivity;
+import com.logicaltech.apniincome.activity.SignInActivity;
 
 import java.util.HashMap;
 

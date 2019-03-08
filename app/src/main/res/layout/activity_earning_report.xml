@@ -151,27 +151,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1.639 ETH"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/light_blue_500" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.38 USD"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_40" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -240,18 +219,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textview_DirectIncome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.947 ETH"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/light_blue_500" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5.204 USD"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_40" />
 
                 </LinearLayout>
 
@@ -322,18 +295,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textview_Binary_Income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2.165 ETH"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                         android:textColor="@color/light_blue_500" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8.42 USD"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_40" />
 
                 </LinearLayout>
 
@@ -397,27 +363,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.035 ETH"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                        android:textColor="@color/light_blue_500" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8.12 USD"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_40" />
-
-                </LinearLayout>
 
             </LinearLayout>
 

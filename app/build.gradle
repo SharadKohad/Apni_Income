@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.logicaltech.mydemoapplication"
+        applicationId "com.logicaltech.apniincome"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

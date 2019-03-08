@@ -135,6 +135,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
+                android:visibility="gone"
                 android:background="@drawable/box_shadow">
 
 
@@ -157,6 +158,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
+                android:visibility="gone"
                 android:background="@drawable/box_shadow">
 
                 <TextView
@@ -179,6 +181,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
+                android:visibility="gone"
                 android:background="@drawable/box_shadow">
 
                 <TextView
@@ -229,14 +232,14 @@
                 android:layout_marginTop="@dimen/_25sdp">
 
                 <Button
-                    android:id="@+id/button_getotp"
+                    android:id="@+id/button_withdrawle_history"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/_40sdp"
                     android:background="@drawable/btn_rounded_green"
                     android:gravity="center"
-                    android:text="Get Otp"
+                    android:text="Withdrawal"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp" />
 
@@ -245,11 +248,11 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
                     android:background="@drawable/btn_rounded_green"
                     android:gravity="center"
                     android:text="WITHDRAW"
-                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_40sdp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp" />
 

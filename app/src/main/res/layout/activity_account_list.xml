@@ -56,7 +56,8 @@
         android:background="@drawable/btn_rounded_green"
         android:text="Add New Account"
         android:textColor="@color/white"
-        android:textSize="@dimen/_8sdp" />
+        android:textSize="@dimen/_8sdp"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

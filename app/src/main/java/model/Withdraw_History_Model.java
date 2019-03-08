@@ -8,6 +8,15 @@ public class Withdraw_History_Model
     String charges;
     String tds;
     String paid_amount;
+    String iNR_Amt;
+
+    public String getiNR_Amt() {
+        return iNR_Amt;
+    }
+
+    public void setiNR_Amt(String iNR_Amt) {
+        this.iNR_Amt = iNR_Amt;
+    }
 
     public String getDate() {
         return date;

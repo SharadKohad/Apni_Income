@@ -7,12 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.logicaltech.mydemoapplication.R;
-import com.logicaltech.mydemoapplication.activity.DTHActivity;
-import com.logicaltech.mydemoapplication.activity.RechargeActivity;
+import com.logicaltech.apniincome.R;
+import com.logicaltech.apniincome.activity.DTHActivity;
+import com.logicaltech.apniincome.activity.RechargeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

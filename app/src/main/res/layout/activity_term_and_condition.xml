@@ -33,10 +33,10 @@
     </RelativeLayout>
 
 
-    <WebView
+  <!--  <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relativelayout_reacharg_top"/>
+        android:layout_below="@+id/relativelayout_reacharg_top"/>-->
 
 </RelativeLayout>

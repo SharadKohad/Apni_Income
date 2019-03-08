@@ -3,20 +3,16 @@ package adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.logicaltech.mydemoapplication.R;
-import com.logicaltech.mydemoapplication.activity.AccountDetailActivity;
+import com.logicaltech.apniincome.R;
+import com.logicaltech.apniincome.activity.AccountDetailActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 import model.Account_Model;
 

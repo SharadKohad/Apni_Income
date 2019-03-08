@@ -167,19 +167,6 @@
                 android:src="@drawable/ic_arrow_right"
                 android:visibility="visible"/>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_signin1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:textStyle="bold"
-                android:tint="@color/cyan_800"
-                app:backgroundTint="@android:color/white"
-                app:fabSize="normal"
-                app:rippleColor="@color/cyan_800"
-                android:src="@drawable/ic_arrow_downward"
-                android:visibility="gone"/>
-
 
             <ProgressBar
                 android:id="@+id/progress_barsignin"

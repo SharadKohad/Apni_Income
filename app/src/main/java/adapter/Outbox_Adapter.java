@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.logicaltech.mydemoapplication.R;
+import com.logicaltech.apniincome.R;
 
 import java.util.ArrayList;
 

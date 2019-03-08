@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.logicaltech.mydemoapplication.R;
+import com.logicaltech.apniincome.R;
 
 import java.util.ArrayList;
 
@@ -34,12 +34,12 @@ public class WithDraw_History_Adapter extends RecyclerView.Adapter<WithDraw_Hist
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position)
     {
         final Withdraw_History_Model account_model = orderList.get(position);
-
         holder.TV_Withdraw_Date.setText(account_model.getDate());
         holder.TV_Withdraw_amount.setText(account_model.getAmount());
-        holder.TV_Withdraw_Charges.setText(account_model.getCharges());
-     //   holder.TV_Branch_Name.setText("Bank Name: "+account_model.getPaid_amount());
-        holder.TV_Paid_Amount.setText(account_model.getPaid_amount());
+        holder.TV_Withdraw_Charges.setText(account_model.getPaid_amount());
+        holder.TV_Withdraw_Status.setText(account_model.getStatus());
+        holder.TV_Deduction.setText(account_model.getTds());
+        holder.TV_INR_Amount.setText("INR_Amt: "+account_model.getiNR_Amt());
 
       /*  holder.relativeLayout_Account_List.setOnClickListener(new View.OnClickListener()
         {
@@ -68,15 +68,17 @@ public class WithDraw_History_Adapter extends RecyclerView.Adapter<WithDraw_Hist
     }
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
     {
-        TextView TV_Withdraw_Date,TV_Withdraw_amount,TV_Withdraw_Charges,TV_Paid_Amount;
+        TextView TV_Withdraw_Date,TV_Withdraw_amount,TV_INR_Amount,TV_Withdraw_Charges,TV_Deduction,TV_Withdraw_Status;
         RelativeLayout relativeLayout_Account_List;
         public RecyclerViewHolder(View itemView)
         {
             super(itemView);
             TV_Withdraw_Date = (TextView) itemView.findViewById(R.id.text_view_withdrawdate1);
-            TV_Withdraw_amount = (TextView) itemView.findViewById(R.id.text_view_withdraw_amount);
-            TV_Withdraw_Charges = (TextView) itemView.findViewById(R.id.text_view_withdraw_charges);
-            TV_Paid_Amount = (TextView) itemView.findViewById(R.id.text_view_paid_amount);
+            TV_Withdraw_amount = (TextView) itemView.findViewById(R.id.textview_withdraw_amount);
+            TV_INR_Amount = (TextView) itemView.findViewById(R.id.text_view_inrwithdraw_amount);
+            TV_Withdraw_Charges = (TextView) itemView.findViewById(R.id.text_view_paid_amount);
+            TV_Withdraw_Status = (TextView) itemView.findViewById(R.id.textview_withdraw_status);
+            TV_Deduction = (TextView) itemView.findViewById(R.id.textview_withdraw_deductamt);
             relativeLayout_Account_List = (RelativeLayout)itemView.findViewById(R.id.relative_layout_account_list);
         }
     }
