@@ -39,8 +39,10 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
         holder.TV_Recharge_Type.setText(account_model.getRech_Type());
         holder.TV_Recharge_Operator.setText(account_model.getOperator());
         holder.TV_Mobile_Name.setText(account_model.getMobile_Service_No());
-     //   holder.TV_Branch_Name.setText("Bank Name: "+account_model.getMobile());
+        holder.TV_Recharge_Date.setText("Dt: "+account_model.getCreated_Dt());
         holder.TV_Recharge_Amount.setText(account_model.getRech_Amount());
+        holder.TV_Recharge_Status.setText(account_model.getRech_status());
+
 
    /*     holder.relativeLayout_Account_List.setOnClickListener(new View.OnClickListener()
         {
@@ -69,7 +71,7 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
     }
     public class RecyclerViewHolder extends RecyclerView.ViewHolder
     {
-        TextView TV_Recharge_Type,TV_Recharge_Operator,TV_Mobile_Name,TV_Recharge_Amount;
+        TextView TV_Recharge_Type,TV_Recharge_Operator,TV_Mobile_Name,TV_Recharge_Amount,TV_Recharge_Date,TV_Recharge_Status;
         RelativeLayout relativeLayout_Account_List;
         public RecyclerViewHolder(View itemView)
         {
@@ -77,8 +79,9 @@ public class Recharge_History_Adapter extends RecyclerView.Adapter<Recharge_Hist
             TV_Recharge_Type = (TextView) itemView.findViewById(R.id.text_view_recharg_type_history);
             TV_Recharge_Operator = (TextView) itemView.findViewById(R.id.text_view_recharg_operator_history);
             TV_Mobile_Name = (TextView) itemView.findViewById(R.id.text_view_mobile_no_recharge_history);
-         //   TV_Branch_Name = (TextView) itemView.findViewById(R.id.text_view_branch_name);
+            TV_Recharge_Date = (TextView) itemView.findViewById(R.id.textview_rechargehistory_date);
             TV_Recharge_Amount = (TextView) itemView.findViewById(R.id.text_view_recharge_amount);
+            TV_Recharge_Status = (TextView) itemView.findViewById(R.id.textview_rechargehistory_status);
             relativeLayout_Account_List = (RelativeLayout)itemView.findViewById(R.id.relative_layout_account_list);
         }
     }

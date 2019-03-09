@@ -54,6 +54,7 @@ public class Operator_Adapter extends RecyclerView.Adapter<Operator_Adapter.Recy
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     intent.putExtra("token","1");
                     intent.putExtra("operator",orderList.get(position).getOperate());
+                    intent.putExtra("code",orderList.get(position).getCode());
                     mContext.getApplicationContext().startActivity(intent);
                 }
                 else

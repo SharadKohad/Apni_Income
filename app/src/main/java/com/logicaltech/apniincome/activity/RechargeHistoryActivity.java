@@ -76,7 +76,7 @@ public class RechargeHistoryActivity extends AppCompatActivity
 
     public void rechargeHistory(final String memberId)
     {
-        String url = Constant.URL+"getRechargeReport?MemberID="+memberId;
+        String url = Constant.URL+"getRechargeReport?membercode="+memberId;
         JsonArrayRequest MyStringRequest = new JsonArrayRequest(Request.Method.POST, url, new Response.Listener<JSONArray>()
         {
             @Override

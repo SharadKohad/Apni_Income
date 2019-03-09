@@ -52,7 +52,28 @@ public class SpashActivity extends AppCompatActivity
         li1.setAnimation(uptodown);
         li2.setAnimation(downtoup);
 
-        versionControl();
+        handler=new Handler();
+        handler.postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (sessionManeger.checkLogin())
+                {
+                    Intent intent=new Intent(SpashActivity.this,SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Intent intent=new Intent(SpashActivity.this,DashBoardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        },1000);
+
+     //   versionControl();
 
        /* handler=new Handler();
         handler.postDelayed(new Runnable()

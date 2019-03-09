@@ -95,7 +95,8 @@ public class WithdrawActivity extends AppCompatActivity
         weekDay = dayFormat.format(calendar.getTime());
         init();
     }
-    public void init() {
+    public void init()
+    {
         textView_Total_Balance = (TextView)findViewById(R.id.tv_withdraw_totalbalance);
         ET_mobile_no = (EditText) findViewById(R.id.EditText_Mobileno_withdraw);
         textView_Total_Balance.setText(Constant.TOTAL_BALANCE);
@@ -116,7 +117,6 @@ public class WithdrawActivity extends AppCompatActivity
         linearLayout_mobile_otp = (LinearLayout) findViewById(R.id.linear_layout_mobile_otp);
         Btn_withDraw = (Button) findViewById(R.id.button_withdrawle);
         imageView_back_arrow = (ImageView) findViewById(R.id.imageview_back_arrow_reacharg_withdraw);
-
         imageView_back_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +124,7 @@ public class WithdrawActivity extends AppCompatActivity
             }
         });
 
-        ET_Amount.addTextChangedListener(new TextWatcher() {
+       /* ET_Amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
@@ -162,7 +162,7 @@ public class WithdrawActivity extends AppCompatActivity
             {
 
             }
-        });
+        });*/
 
         mobileNumberList(member_id);
         postKYC(member_id);
@@ -211,7 +211,7 @@ public class WithdrawActivity extends AppCompatActivity
                         }
                         else
                         {
-                            putWithdraw(member_id,ET_mobile_no.getText().toString(),srno,TV_Paid_Amount.getText().toString());
+                            putWithdraw(member_id,ET_mobile_no.getText().toString(),srno,ET_Amount.getText().toString());
                         }
                     }
                 }
@@ -666,7 +666,8 @@ public class WithdrawActivity extends AppCompatActivity
                         VolleyLog.d("volley", "Error: " + error.getMessage());
                         error.printStackTrace();
                     }
-                }) {
+                })
+        {
             @Override
             public String getBodyContentType()
             {
@@ -684,6 +685,6 @@ public class WithdrawActivity extends AppCompatActivity
             }
         };
         MySingalton.getInstance(getApplicationContext()).addRequestQueue(jsonObjRequest);
+        jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(100000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
 }

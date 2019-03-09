@@ -239,7 +239,7 @@
                     android:layout_marginLeft="@dimen/_40sdp"
                     android:background="@drawable/btn_rounded_green"
                     android:gravity="center"
-                    android:text="Withdrawal"
+                    android:text="History"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8sdp" />
 
@@ -250,7 +250,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/btn_rounded_green"
                     android:gravity="center"
-                    android:text="WITHDRAW"
+                    android:text="Withdrawal "
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/_40sdp"
                     android:textColor="@color/white"

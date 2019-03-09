@@ -153,6 +153,20 @@
             android:layout_below="@+id/textinputlayout_amount"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btn_processrecharge_history"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_rounded_green_300"
+            android:text="Recharge History"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/btn_processrecharge"
+            android:textStyle="bold" />
+
     </RelativeLayout>
 
 </RelativeLayout>

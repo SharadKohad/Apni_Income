@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.logicaltech.apniincome.R;
@@ -40,17 +41,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import utility.Constant;
+import utility.MySingalton;
 import utility.SessionManeger;
 
 public class RechargeActivity extends AppCompatActivity
 {
     ImageView IV_Back_Arrow,IV_Contact_Access;
-    Button btn_recharge;
+    Button btn_recharge,btn_history;
     private View parent_view;
     TextInputEditText textInputEditTextMobileNumber;
     private static final int PERMISSION_REQUEST_CONTACT=0;
     TextInputEditText TextInputEditText_Amount;
-    String token="0",memberId;
+    String token="0",memberId,code;
     SessionManeger sessionManeger;
     LinearLayout linearLayout_mobile_rechargge;
     TextView TV_Operator;
@@ -62,6 +64,7 @@ public class RechargeActivity extends AppCompatActivity
         setContentView(R.layout.activity_recharge);
         IV_Back_Arrow = (ImageView) findViewById(R.id.reacharg_back_arrow);
         btn_recharge = (Button) findViewById(R.id.btn_processrecharge);
+        btn_history = (Button) findViewById(R.id.btn_processrecharge_history);
         parent_view = findViewById(android.R.id.content);
         IV_Contact_Access = (ImageView) findViewById(R.id.contact_access);
         textInputEditTextMobileNumber = (TextInputEditText) findViewById(R.id.et_mobilenumber);
@@ -77,6 +80,7 @@ public class RechargeActivity extends AppCompatActivity
         if (token.equals("1"))
         {
             TV_Operator.setText(getIntent().getExtras().getString("operator"));
+            code = getIntent().getExtras().getString("code");
         }
 
         IV_Back_Arrow.setOnClickListener(new View.OnClickListener()
@@ -95,6 +99,16 @@ public class RechargeActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 searchAction();
+            }
+        });
+
+        btn_history.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(RechargeActivity.this,RechargeHistoryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -188,7 +202,7 @@ public class RechargeActivity extends AppCompatActivity
 
     public void putRecharge(final String member_Id, final String recharge_type, final String operator, final String amount, final String number) {
         RequestQueue MyRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = Constant.URL+"addRecharge?MemberID="+member_Id+"&RechargeType="+recharge_type+"&Operator="+operator+"&Amount="+amount+"&Number="+number+"&DeviceType=Android";
+        String url = Constant.URL+"addRecharge?membercode="+member_Id+"&RechargeType="+recharge_type+"&Amount="+amount+"&Number="+number+"&Operator="+operator+"&DeviceType=Android";
         StringRequest MyStringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>()
         {
             @Override
@@ -198,14 +212,16 @@ public class RechargeActivity extends AppCompatActivity
                 {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("status");
-                    if (status.equals("SUCCESS"))
+                    String msg    = jsonObject.getString("msg");
+                    if (status.equals("1"))
                     {
+                        Toast.makeText(RechargeActivity.this,""+msg,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RechargeActivity.this,DashBoardActivity.class);
                         startActivity(intent);
                     }
                     else
                     {
-                        Toast.makeText(RechargeActivity.this,""+status,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RechargeActivity.this,""+msg,Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (JSONException e)
@@ -243,7 +259,8 @@ public class RechargeActivity extends AppCompatActivity
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void recharge() {
+    public void recharge()
+    {
         String mobile_no = textInputEditTextMobileNumber.getText().toString();
         if (mobile_no.equals(""))
         {
@@ -272,12 +289,11 @@ public class RechargeActivity extends AppCompatActivity
                         public void run()
                         {
                             btn_recharge.setAlpha(1f);
-                            putRecharge(memberId,"1",TV_Operator.getText().toString(),TextInputEditText_Amount.getText().toString(),textInputEditTextMobileNumber.getText().toString());
+                            putRecharge(memberId,"1",code,TextInputEditText_Amount.getText().toString(),textInputEditTextMobileNumber.getText().toString());
                         }
                     }, 1000);
                 }
             }
         }
     }
-
 }

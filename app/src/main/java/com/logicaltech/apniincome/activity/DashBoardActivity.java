@@ -260,13 +260,15 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void buttonClicked(View view) {
+    public void buttonClicked(View view)
+    {
         if (view.getId() == R.id.linear_layout_DTH)
         {
-            intent = new Intent(DashBoardActivity.this,DTHActivity.class);
+           /* intent = new Intent(DashBoardActivity.this,DTHActivity.class);
             intent.putExtra("token","0");
             startActivity(intent);
-            // button1 action
+            // button1 action*/
+            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
         }
         else if(view.getId()==R.id.linearlayout_mobile_reacharge)
         {
