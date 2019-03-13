@@ -55,7 +55,7 @@ public class RechargeActivity extends AppCompatActivity
     String token="0",memberId,code;
     SessionManeger sessionManeger;
     LinearLayout linearLayout_mobile_rechargge;
-    TextView TV_Operator;
+    TextView TV_Operator,TV_Recharg_rwallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -69,13 +69,15 @@ public class RechargeActivity extends AppCompatActivity
         IV_Contact_Access = (ImageView) findViewById(R.id.contact_access);
         textInputEditTextMobileNumber = (TextInputEditText) findViewById(R.id.et_mobilenumber);
         TV_Operator = (TextView) findViewById(R.id.TextView_dth_operator);
+        TV_Recharg_rwallet = (TextView) findViewById(R.id.text_view_total_rwallet);
         TextInputEditText_Amount = (TextInputEditText) findViewById(R.id.textinputedittext_amount);
         sessionManeger = new SessionManeger(getApplicationContext());
         linearLayout_mobile_rechargge= (LinearLayout) findViewById(R.id.linear_layout_mobilerecharge_operator);
-
         HashMap<String, String> hashMap = sessionManeger.getUserDetails();
         memberId = hashMap.get(SessionManeger.MEMBER_ID);
         token = getIntent().getExtras().getString("token");
+
+        TV_Recharg_rwallet.setText(Constant.RWALLET_BALANCE);
 
         if (token.equals("1"))
         {
@@ -216,8 +218,13 @@ public class RechargeActivity extends AppCompatActivity
                     if (status.equals("1"))
                     {
                         Toast.makeText(RechargeActivity.this,""+msg,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RechargeActivity.this,""+msg,Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RechargeActivity.this,DashBoardActivity.class);
                         startActivity(intent);
+                    }
+                    else if(status.equals("2"))
+                    {
+                        Toast.makeText(RechargeActivity.this,"Rechange pending",Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -259,8 +266,7 @@ public class RechargeActivity extends AppCompatActivity
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void recharge()
-    {
+    public void recharge() {
         String mobile_no = textInputEditTextMobileNumber.getText().toString();
         if (mobile_no.equals(""))
         {

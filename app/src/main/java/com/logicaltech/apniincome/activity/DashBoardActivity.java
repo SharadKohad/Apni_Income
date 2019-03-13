@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +49,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     List<Banner> banners=new ArrayList<>();
     Intent intent;
     SessionManeger sessionManeger;
-    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName,TextViewDirectIncome,TextViewTotalROI,TextViewTotalBinaryIncome,TextViewLevelIncome,TextViewDirectTeam;
+    TextView TextViewUserName,TextViewUserEmail,TextViewTotalBalance,TextViewProfileName,TextViewDirectIncome,TextViewTotalROI,TextViewTotalBinaryIncome,TextViewLevelIncome,TextViewDirectTeam,TextViewRWallet_Balance;
     String memberId;
+    LinearLayout linearLayoutRwallet;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -102,8 +104,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         bannerSlider.setBanners(banners);
     }
 
-    public void init()
-    {
+    public void init() {
         bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         TextViewTotalBalance = (TextView) findViewById(R.id.text_view_total_balance);
         TextViewDirectIncome = (TextView) findViewById(R.id.text_view_total_direct_income);
@@ -112,6 +113,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         TextViewProfileName = (TextView) findViewById(R.id.textView_userName);
         TextViewLevelIncome = (TextView) findViewById(R.id.text_view_total_level_income);
         TextViewDirectTeam = (TextView) findViewById(R.id.text_view_total_direct_team);
+        TextViewRWallet_Balance = (TextView) findViewById(R.id.text_view_total_rwallet_balance);
+        linearLayoutRwallet = (LinearLayout) findViewById(R.id.linearlayout_rwallet);
     }
 
     @Override
@@ -124,11 +127,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
-    {
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_profile)
@@ -212,15 +213,18 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     String Total_Binary_Income = jsonObject.getString("Total_Binary_Income");
                     String Level_Wallet = jsonObject.getString("Level_Wallet");
                     String Total_Direct_Referral = jsonObject.getString("Total_Direct_Referral");
+                    String RWallet_Balance = jsonObject.getString("RWallet_Balance");
                     Constant.TOTAL_BALANCE = total_Balance;
                     Constant.DIRECT_INCOME = Total_Direct_Income;
                     Constant.TOTAL_BINARY = Total_Binary_Income;
+                    Constant.RWALLET_BALANCE = RWallet_Balance;
                     TextViewTotalBalance.setText(total_Balance);
                     TextViewDirectIncome.setText(Total_Direct_Income);
                     TextViewTotalROI.setText(Total_ROI);
                     TextViewTotalBinaryIncome.setText(Total_Binary_Income);
                     TextViewLevelIncome.setText(Level_Wallet);
                     TextViewDirectTeam.setText(Total_Direct_Referral);
+                    TextViewRWallet_Balance.setText(RWallet_Balance);
 
                     Toast.makeText(DashBoardActivity.this,"DashBoard Successfull",Toast.LENGTH_SHORT).show();
                 }
@@ -260,11 +264,10 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         MyRequestQueue.add(MyStringRequest);
     }
 
-    public void buttonClicked(View view)
-    {
+    public void buttonClicked(View view) {
         if (view.getId() == R.id.linear_layout_DTH)
         {
-           /* intent = new Intent(DashBoardActivity.this,DTHActivity.class);
+          /*intent = new Intent(DashBoardActivity.this,DTHActivity.class);
             intent.putExtra("token","0");
             startActivity(intent);
             // button1 action*/
@@ -280,10 +283,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         {
             Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
         }
-        /*else if(view.getId()==R.id.linear_layout_withdraw)
-        {
-            Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
-        }*/
         else if(view.getId() == R.id.linear_layout_electricity)
         {
             Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
@@ -303,6 +302,12 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         else if (view.getId() == R.id.linear_layout_train)
         {
             Toast.makeText(DashBoardActivity.this,"Coming Soon",Toast.LENGTH_SHORT).show();
+        }
+        else if(view.getId()==R.id.linearlayout_rwallet)
+        {
+            intent = new Intent(DashBoardActivity.this,RechargeActivity.class);
+            intent.putExtra("token","0");
+            startActivity(intent);
         }
     }
 }

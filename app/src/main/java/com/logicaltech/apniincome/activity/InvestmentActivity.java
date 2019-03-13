@@ -43,7 +43,7 @@ import utility.SessionManeger;
 
 public class InvestmentActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
-    String[] amount = { "1000", "2000", "3000", "5000", "10000", "15000", "25000", "50000"};
+    String[] amount = { "1000", "2000", "3000", "5000", "10000", "15000", "25000", "50000","100000","200000"};
     String investment_amount = "",paidamount="",memberId,investmentBy="",base64Sting,filePath;
     TextView textView_paidAmount;
     Button btn_file_select,btn_proccess,btn_investment_history;
@@ -126,8 +126,7 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getApplicationContext(),amount[position] , Toast.LENGTH_LONG).show();
         investment_amount = amount[position];
         int amt = Integer.parseInt(investment_amount);
@@ -135,8 +134,7 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
         textView_paidAmount.setText(""+totalamount);
     }
     @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
@@ -228,32 +226,40 @@ public class InvestmentActivity extends AppCompatActivity implements AdapterView
     }
 
     private String getBase64() {
-
         File file = new File(filePath);  //file Path
         byte[] b = new byte[(int) file.length()];
-        try {
+        try
+        {
             FileInputStream fileInputStream = new FileInputStream(file);
             fileInputStream.read(b);
-            for (int j = 0; j < b.length; j++) {
+            for (int j = 0; j < b.length; j++)
+            {
                 System.out.print((char) b[j]);
             }
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             System.out.println("File Not Found.");
             e.printStackTrace();
-        } catch (IOException e1) {
+        }
+        catch (IOException e1)
+        {
             System.out.println("Error Reading The File.");
             e1.printStackTrace();
         }
 
         byte[] byteFileArray = new byte[0];
-        try {
+        try
+        {
             byteFileArray = FileUtils.readFileToByteArray(file);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
-
         String base64String = "";
-        if (byteFileArray.length > 0) {
+        if (byteFileArray.length > 0)
+        {
             base64String = android.util.Base64.encodeToString(byteFileArray, android.util.Base64.NO_WRAP);
             Log.i("File Base64 string", "IMAGE PARSE ==>" + base64String);
         }

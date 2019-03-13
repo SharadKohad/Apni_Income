@@ -32,7 +32,8 @@ public class ProfileActivity extends AppCompatActivity
         init();
     }
 
-    public void init() {
+    public void init()
+    {
         TV_total_Balance = (TextView) findViewById(R.id.tv_totalbalance);
         LinearLayout_ViewProfile = (LinearLayout) findViewById(R.id.linear_layout_view_profile);
         LinearLayout_AccountDetail = (LinearLayout) findViewById(R.id.linear_layout_Account_list);
@@ -121,9 +122,11 @@ public class ProfileActivity extends AppCompatActivity
             }
         });
 
-        btn_logout.setOnClickListener(new View.OnClickListener() {
+        btn_logout.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 new AlertDialog.Builder(ProfileActivity.this)
                         .setMessage("Are you sure you want to logout?").setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
@@ -136,6 +139,5 @@ public class ProfileActivity extends AppCompatActivity
                         }).setNegativeButton("No", null).show();
             }
         });
-
     }
 }
